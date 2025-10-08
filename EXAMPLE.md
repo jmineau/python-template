@@ -15,8 +15,8 @@ When prompted, you might enter:
 - `project_name`: Awesome Tool
 - `project_slug`: awesome_tool (auto-generated)
 - `project_short_description`: A tool for doing awesome things
-- `version`: 0.1.0 (default)
-- `python_version`: 3.8 (default)
+- `version`: 2024.1.0 (default, calver format)
+- `python_version`: 3.10 (default)
 
 ## Generated Structure
 
@@ -35,9 +35,8 @@ awesome_tool/
 │   ├── api.rst            # API reference
 │   ├── Makefile           # Build documentation (Unix)
 │   └── make.bat           # Build documentation (Windows)
-├── src/
-│   └── awesome_tool/      # Package source code
-│       └── __init__.py    # Package initialization
+├── awesome_tool/          # Package source code
+│   └── __init__.py        # Package initialization
 ├── tests/                 # Test files
 │   ├── __init__.py
 │   └── test_basic.py      # Basic tests

@@ -17,7 +17,8 @@ This template provides a complete Python package structure with:
 
 ## Requirements
 
-- Python 3.8 or higher
+- Python 3.10 or higher (for generated projects)
+- Python 3.8+ (for running cookiecutter)
 - [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
 
 ## Usage
@@ -42,7 +43,7 @@ or if you have it cloned locally:
 cookiecutter cookiecutter-python/
 ```
 
-You'll be prompted to enter values for your new project:
+Cookiecutter reads the configuration from `cookiecutter.json` and will prompt you to customize values for your new project. You can accept the defaults by pressing Enter, or provide your own values:
 
 - `full_name`: Your full name
 - `email`: Your email address
@@ -50,8 +51,14 @@ You'll be prompted to enter values for your new project:
 - `project_name`: The name of your project (e.g., "My Python Package")
 - `project_slug`: The package name (auto-generated from project_name)
 - `project_short_description`: A brief description of your project
-- `version`: Initial version (default: 0.1.0)
-- `python_version`: Minimum Python version (default: 3.8)
+- `version`: Initial version (default: 2024.1.0, calver format)
+- `python_version`: Minimum Python version (default: 3.10)
+
+To skip prompts and use all defaults:
+
+```bash
+cookiecutter https://github.com/jmineau/cookiecutter-python --no-input
+```
 
 ### After Generation
 
@@ -109,9 +116,8 @@ your_project_slug/
 │   ├── api.rst
 │   ├── Makefile
 │   └── make.bat
-├── src/
-│   └── your_project_slug/  # Your package source code
-│       └── __init__.py
+├── your_project_slug/      # Your package source code
+│   └── __init__.py
 ├── tests/                  # Test files
 │   ├── __init__.py
 │   └── test_basic.py
