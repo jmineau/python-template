@@ -61,14 +61,14 @@ Before submitting a pull request, please:
 - `{{cookiecutter.project_slug}}/`: The template directory (gets renamed based on user input)
   - `.github/workflows/`: CI/CD workflows
   - `docs/`: Sphinx documentation structure
-  - `src/{{cookiecutter.project_slug}}/`: Package source code
+  - `{{cookiecutter.project_slug}}/`: Package source code
   - `tests/`: Test files
   - Configuration files (`.pre-commit-config.yaml`, `pyproject.toml`, etc.)
 
 ## Guidelines
 
 - Keep the template minimal and focused on best practices
-- Maintain compatibility with Python 3.8+
+- Maintain compatibility with Python 3.10+
 - Document any significant changes in the template
 - Ensure all generated files use proper Jinja2 templating where needed
 - Test changes thoroughly before submitting

@@ -159,7 +159,7 @@ After generation, you can customize:
 - Update documentation theme in `docs/conf.py`
 - Add more workflows to `.github/workflows/`
 - Update README with project-specific information
-- Add your source code to `src/awesome_tool/`
+- Add your source code to `{{package_name}}/`
 - Add tests to `tests/`
 
 ## Next Steps
