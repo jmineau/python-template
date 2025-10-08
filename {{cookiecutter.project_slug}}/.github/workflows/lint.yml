@@ -26,3 +26,13 @@ jobs:
     - name: Run pre-commit hooks
       run: |
         pre-commit run --all-files
+
+    - name: Type checking with mypy
+      run: |
+        mypy {{ cookiecutter.project_slug }} --ignore-missing-imports
+      continue-on-error: true
+
+    - name: Check docstring coverage
+      run: |
+        docstr-coverage {{ cookiecutter.project_slug }} --skip-magic --skip-init
+      continue-on-error: true

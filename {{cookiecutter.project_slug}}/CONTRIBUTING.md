@@ -63,6 +63,7 @@ This project uses:
 - **Black** for code formatting (88 character line length)
 - **isort** for import sorting (with Black profile)
 - **flake8** for linting
+- **mypy** for static type checking
 
 Pre-commit hooks will automatically check and format your code before each commit.
 
@@ -81,6 +82,16 @@ pytest
 Run tests with coverage:
 ```bash
 pytest --cov={{ cookiecutter.project_slug }} --cov-report=html
+```
+
+Check type coverage:
+```bash
+mypy {{ cookiecutter.project_slug }}
+```
+
+Check docstring coverage:
+```bash
+docstr-coverage {{ cookiecutter.project_slug }} --skip-magic --skip-init
 ```
 
 ## Documentation

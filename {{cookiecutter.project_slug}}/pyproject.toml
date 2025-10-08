@@ -28,6 +28,8 @@ dev = [
     "pre-commit>=3.0.0",
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
+    "mypy>=1.0.0",
+    "docstr-coverage>=2.0.0",
 ]
 docs = [
     "sphinx>=7.0.0",
@@ -62,4 +64,33 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "--cov={{ cookiecutter.project_slug }} --cov-report=term-missing --cov-report=html"
+addopts = "--cov={{ cookiecutter.project_slug }} --cov-report=term-missing --cov-report=html --cov-report=xml"
+
+[tool.mypy]
+python_version = "{{ cookiecutter.python_version }}"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_equality = true
+
+[tool.coverage.run]
+source = ["{{ cookiecutter.project_slug }}"]
+omit = ["*/tests/*", "*/test_*.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]

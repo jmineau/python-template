@@ -136,12 +136,15 @@ your_project_slug/
 - **Black**: Opinionated code formatter with 88-character line length
 - **isort**: Import sorting (configured for Black compatibility)
 - **flake8**: Linting
+- **mypy**: Static type checking
 - **pre-commit**: Automated pre-commit hooks for all the above
 
-### Testing
+### Testing & Coverage
 
 - **pytest**: Modern testing framework
-- **pytest-cov**: Coverage reporting
+- **pytest-cov**: Code coverage reporting with XML output for Codecov
+- **Coverage.py**: Detailed coverage configuration with exclusions
+- **docstr-coverage**: Documentation coverage checking
 
 ### Documentation
 
@@ -152,9 +155,18 @@ your_project_slug/
 
 ### CI/CD
 
-- **Tests workflow**: Runs tests on multiple Python versions and OS
+- **Tests workflow**: Runs tests on multiple Python versions and OS with coverage upload to Codecov
 - **Docs workflow**: Builds and deploys documentation to GitHub Pages
-- **Lint workflow**: Runs code quality checks
+- **Lint workflow**: Runs code quality checks, type checking, and docstring coverage
+
+### Badges
+
+Generated projects include comprehensive badges for:
+- **Build status**: Tests, documentation build, and code quality
+- **Code coverage**: Codecov integration
+- **PyPI**: Package version and Python version support
+- **License**: MIT license badge
+- **Code style**: Black formatter badge
 
 ## Customization
 
