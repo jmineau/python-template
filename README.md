@@ -51,14 +51,8 @@ Cookiecutter reads the configuration from `cookiecutter.json` and will prompt yo
 - `project_name`: The name of your project (e.g., "My Python Package")
 - `project_slug`: The package name (auto-generated from project_name)
 - `project_short_description`: A brief description of your project
-- `version`: Initial version (default: 2024.1.0, calver format)
+- `version`: Initial version (default: 2025.1.0, calver format)
 - `python_version`: Minimum Python version (default: 3.10)
-
-To skip prompts and use all defaults:
-
-```bash
-cookiecutter https://github.com/jmineau/cookiecutter-python --no-input
-```
 
 ### After Generation
 

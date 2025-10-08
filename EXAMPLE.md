@@ -15,7 +15,7 @@ When prompted, you might enter:
 - `project_name`: Awesome Tool
 - `project_slug`: awesome_tool (auto-generated)
 - `project_short_description`: A tool for doing awesome things
-- `version`: 2024.1.0 (default, calver format)
+- `version`: 2025.1.0 (default, calver format)
 - `python_version`: 3.10 (default)
 
 ## Generated Structure

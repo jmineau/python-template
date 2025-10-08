@@ -29,7 +29,7 @@ Thank you for considering contributing to {{ cookiecutter.project_name }}! We we
    ```
 
 2. Make your changes and ensure they follow our coding standards:
-   - Code is formatted with Black
+   - Code is formatted with ruff
    - All tests pass
    - New features include tests
    - Documentation is updated if needed
