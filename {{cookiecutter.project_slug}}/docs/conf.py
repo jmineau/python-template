@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.abspath('../src'))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = '{{ cookiecutter.project_name }}'
-copyright = '{{ year }}, {{ cookiecutter.full_name }}'
+copyright = '{{ cookiecutter.year }}, {{ cookiecutter.full_name }}'
 author = '{{ cookiecutter.full_name }}'
 release = '{{ cookiecutter.version }}'
 
