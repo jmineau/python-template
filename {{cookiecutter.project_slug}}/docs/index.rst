@@ -29,9 +29,9 @@
    :target: https://opensource.org/licenses/MIT
    :alt: License
 
-.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-   :target: https://github.com/psf/black
-   :alt: Code style: black
+.. image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
+   :target: https://github.com/astral-sh/ruff
+   :alt: Ruff
 
 {{ cookiecutter.project_short_description }}
 

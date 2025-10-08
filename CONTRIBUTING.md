@@ -61,7 +61,7 @@ Before submitting a pull request, please:
 - `{{cookiecutter.project_slug}}/`: The template directory (gets renamed based on user input)
   - `.github/workflows/`: CI/CD workflows
   - `docs/`: Sphinx documentation structure
-  - `{{cookiecutter.project_slug}}/`: Package source code
+  - `src/{{cookiecutter.project_slug}}/`: Package source code (with py.typed)
   - `tests/`: Test files
   - Configuration files (`.pre-commit-config.yaml`, `pyproject.toml`, etc.)
 

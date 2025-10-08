@@ -24,11 +24,11 @@ classifiers = [
 
 [project.optional-dependencies]
 dev = [
-    "black>=23.0.0",
+    "ruff>=0.1.0",
     "pre-commit>=3.0.0",
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
-    "mypy>=1.0.0",
+    "pyright>=1.1.0",
     "docstr-coverage>=2.0.0",
 ]
 docs = [
@@ -43,44 +43,51 @@ Documentation = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiec
 Repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
 Issues = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues"
 
-[tool.black]
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"{{ cookiecutter.project_slug }}" = ["py.typed"]
+
+[tool.ruff]
+target-version = "py310"
 line-length = 88
-target-version = ['py310', 'py311', 'py312']
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.git
-  | \.venv
-  | \.eggs
-  | \.tox
-  | build
-  | dist
-  | docs
-)/
-'''
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by formatter
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.isort]
+known-first-party = ["{{ cookiecutter.project_slug }}"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "--cov={{ cookiecutter.project_slug }} --cov-report=term-missing --cov-report=html --cov-report=xml"
+addopts = "--cov=src/{{ cookiecutter.project_slug }} --cov-report=term-missing --cov-report=html --cov-report=xml"
 
-[tool.mypy]
-python_version = "{{ cookiecutter.python_version }}"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = false
-disallow_incomplete_defs = false
-check_untyped_defs = true
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_no_return = true
-strict_equality = true
+[tool.pyright]
+include = ["src"]
+exclude = ["**/__pycache__", "**/.venv"]
+pythonVersion = "{{ cookiecutter.python_version }}"
+typeCheckingMode = "basic"
+reportMissingTypeStubs = false
 
 [tool.coverage.run]
-source = ["{{ cookiecutter.project_slug }}"]
+source = ["src/{{ cookiecutter.project_slug }}"]
 omit = ["*/tests/*", "*/test_*.py"]
 
 [tool.coverage.report]

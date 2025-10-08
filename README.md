@@ -116,8 +116,10 @@ your_project_slug/
 │   ├── api.rst
 │   ├── Makefile
 │   └── make.bat
-├── your_project_slug/      # Your package source code
-│   └── __init__.py
+├── src/
+│   └── your_project_slug/  # Your package source code
+│       ├── __init__.py
+│       └── py.typed        # PEP 561 type checking marker
 ├── tests/                  # Test files
 │   ├── __init__.py
 │   └── test_basic.py
@@ -133,11 +135,9 @@ your_project_slug/
 
 ### Code Quality
 
-- **Black**: Opinionated code formatter with 88-character line length
-- **isort**: Import sorting (configured for Black compatibility)
-- **flake8**: Linting
-- **mypy**: Static type checking
-- **pre-commit**: Automated pre-commit hooks for all the above
+- **Ruff**: Fast all-in-one linter and formatter (replaces Black, isort, and flake8)
+- **Pyright**: Fast static type checker
+- **pre-commit**: Automated pre-commit hooks
 
 ### Testing & Coverage
 
@@ -153,11 +153,21 @@ your_project_slug/
 - **sphinx-autodoc-typehints**: Type hints in documentation
 - **Napoleon**: NumPy-style docstrings support
 
+### Package Management
+
+- **pip**: Traditional Python package installer (via pyproject.toml)
+- **uv**: Modern, fast package installer (compatible with pyproject.toml)
+
 ### CI/CD
 
-- **Tests workflow**: Runs tests on multiple Python versions and OS with coverage upload to Codecov
+- **Tests workflow**: Runs tests on Ubuntu, macOS, Windows with Python 3.10-3.12, uploads coverage to Codecov
 - **Docs workflow**: Builds and deploys documentation to GitHub Pages
-- **Lint workflow**: Runs code quality checks, type checking, and docstring coverage
+- **Lint workflow**: Runs code quality checks with ruff, type checking with pyright, and docstring coverage
+
+### Type Checking Support
+
+- **py.typed**: PEP 561 marker file for type checking support
+- **Pyright configuration**: Basic type checking mode in pyproject.toml
 
 ### Badges
 
@@ -166,7 +176,7 @@ Generated projects include comprehensive badges for:
 - **Code coverage**: Codecov integration
 - **PyPI**: Package version and Python version support
 - **License**: MIT license badge
-- **Code style**: Black formatter badge
+- **Ruff**: Ruff formatter badge
 
 ## Customization
 

@@ -7,7 +7,7 @@
 [![PyPI version](https://badge.fury.io/py/{{ cookiecutter.project_slug }}.svg)](https://badge.fury.io/py/{{ cookiecutter.project_slug }})
 [![Python Version](https://img.shields.io/pypi/pyversions/{{ cookiecutter.project_slug }}.svg)](https://pypi.org/project/{{ cookiecutter.project_slug }}/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 {{ cookiecutter.project_short_description }}
 
@@ -19,6 +19,12 @@
 pip install {{ cookiecutter.project_slug }}
 ```
 
+Or with [uv](https://github.com/astral-sh/uv):
+
+```bash
+uv pip install {{ cookiecutter.project_slug }}
+```
+
 ### From Source
 
 ```bash
@@ -27,12 +33,31 @@ cd {{ cookiecutter.project_slug }}
 pip install -e .
 ```
 
+Or with uv:
+
+```bash
+git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.git
+cd {{ cookiecutter.project_slug }}
+uv pip install -e .
+```
+
 ### For Development
+
+With pip:
 
 ```bash
 git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.git
 cd {{ cookiecutter.project_slug }}
 pip install -e ".[dev]"
+pre-commit install
+```
+
+Or with uv (recommended for faster installation):
+
+```bash
+git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.git
+cd {{ cookiecutter.project_slug }}
+uv pip install -e ".[dev]"
 pre-commit install
 ```
 

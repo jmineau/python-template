@@ -60,10 +60,8 @@ Thank you for considering contributing to {{ cookiecutter.project_name }}! We we
 ## Code Style
 
 This project uses:
-- **Black** for code formatting (88 character line length)
-- **isort** for import sorting (with Black profile)
-- **flake8** for linting
-- **mypy** for static type checking
+- **Ruff** for code formatting and linting (replaces Black, isort, and flake8)
+- **Pyright** for static type checking
 
 Pre-commit hooks will automatically check and format your code before each commit.
 
@@ -81,17 +79,23 @@ pytest
 
 Run tests with coverage:
 ```bash
-pytest --cov={{ cookiecutter.project_slug }} --cov-report=html
+pytest --cov=src/{{ cookiecutter.project_slug }} --cov-report=html
+```
+
+Check code with ruff:
+```bash
+ruff check src/{{ cookiecutter.project_slug }}
+ruff format src/{{ cookiecutter.project_slug }}
 ```
 
 Check type coverage:
 ```bash
-mypy {{ cookiecutter.project_slug }}
+pyright src/{{ cookiecutter.project_slug }}
 ```
 
 Check docstring coverage:
 ```bash
-docstr-coverage {{ cookiecutter.project_slug }} --skip-magic --skip-init
+docstr-coverage src/{{ cookiecutter.project_slug }} --skip-magic --skip-init
 ```
 
 ## Documentation

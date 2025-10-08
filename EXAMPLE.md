@@ -35,8 +35,10 @@ awesome_tool/
 │   ├── api.rst            # API reference
 │   ├── Makefile           # Build documentation (Unix)
 │   └── make.bat           # Build documentation (Windows)
-├── awesome_tool/          # Package source code
-│   └── __init__.py        # Package initialization
+├── src/
+│   └── awesome_tool/      # Package source code
+│       ├── __init__.py    # Package initialization
+│       └── py.typed       # PEP 561 type checking marker
 ├── tests/                 # Test files
 │   ├── __init__.py
 │   └── test_basic.py      # Basic tests
@@ -55,10 +57,12 @@ awesome_tool/
 Modern Python packaging with:
 - Project metadata
 - Dependencies (dev and docs)
-- Black configuration (88 char line length)
+- Ruff configuration for linting and formatting
 - pytest configuration with coverage (HTML and XML output)
-- mypy configuration for type checking
+- Pyright configuration for type checking
 - Coverage.py configuration with exclusions
+- setuptools configuration for src layout
+- py.typed support for PEP 561
 
 ### .pre-commit-config.yaml
 
@@ -69,17 +73,15 @@ Automated code quality checks:
 - check-added-large-files
 - check-merge-conflict
 - debug-statements
-- **black** - code formatting
-- **isort** - import sorting
-- **flake8** - linting
-- **mypy** - type checking
+- **ruff** - linting and formatting (replaces black, isort, flake8)
+- **pyright** - type checking
 
 ### README.md
 
 Template includes:
-- **Badges**: Tests, documentation, code quality, coverage, PyPI version, Python versions, license, code style
+- **Badges**: Tests, documentation, code quality, coverage, PyPI version, Python versions, license, ruff
 - Project title and description
-- Installation instructions (PyPI, source, development)
+- Installation instructions (pip and uv, PyPI, source, development)
 - Usage example
 - Documentation link
 - Contributing guidelines link
@@ -110,7 +112,8 @@ Comprehensive guidelines including:
 
 #### lint.yml
 - Runs all pre-commit hooks
-- Type checking with mypy
+- Linting and formatting with ruff
+- Type checking with pyright
 - Docstring coverage checking
 - Ensures code quality
 
@@ -159,8 +162,9 @@ After generation, you can customize:
 - Update documentation theme in `docs/conf.py`
 - Add more workflows to `.github/workflows/`
 - Update README with project-specific information
-- Add your source code to `{{package_name}}/`
+- Add your source code to `src/{{package_name}}/`
 - Add tests to `tests/`
+- Configure ruff and pyright settings in `pyproject.toml`
 
 ## Next Steps
 
