@@ -17,8 +17,7 @@ This template provides a complete Python package structure with:
 
 ## Requirements
 
-- Python 3.10 or higher (for generated projects)
-- Python 3.8+ (for running cookiecutter)
+- Python 3.10 or higher
 - [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
 
 ## Usage
@@ -54,7 +53,6 @@ Cookiecutter reads the configuration from `cookiecutter.json` and will prompt yo
 - `project_short_description`: A brief description of your project
 - `year`: Year used for default values (e.g., 2025).
 - `version`: Initial version (default: 2025.1.0, calver format)
-- `python_version`: Minimum Python version (default: 3.10)
 
 ### After Generation
 

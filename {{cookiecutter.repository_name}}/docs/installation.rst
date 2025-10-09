@@ -36,4 +36,4 @@ For development, install with the development dependencies:
 Requirements
 ------------
 
-- Python {{ cookiecutter.python_version }} or higher
+- Python 3.10 or higher

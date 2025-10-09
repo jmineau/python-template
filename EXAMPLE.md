@@ -18,7 +18,6 @@ When prompted, you might enter:
 - `project_short_description`: A tool for doing awesome things
 - `year`: 2025 (used to populate the LICENSE and other generated files; also used to form the default `version`)
 - `version`: 2025.1.0 (default, calver format)
-- `python_version`: 3.10 (default)
 
 ## Generated Structure
 

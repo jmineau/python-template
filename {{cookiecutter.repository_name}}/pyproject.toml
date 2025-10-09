@@ -7,7 +7,7 @@ name = "{{ cookiecutter.package_name }}"
 version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.project_short_description }}"
 readme = "README.md"
-requires-python = ">={{ cookiecutter.python_version }}"
+requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
     {name = "{{ cookiecutter.full_name }}", email = "{{ cookiecutter.email }}"}
@@ -82,7 +82,7 @@ addopts = "--cov=src/{{ cookiecutter.package_name }} --cov-report=term-missing -
 [tool.pyright]
 include = ["src"]
 exclude = ["**/__pycache__", "**/.venv"]
-pythonVersion = "{{ cookiecutter.python_version }}"
+pythonVersion = "3.10"
 typeCheckingMode = "basic"
 reportMissingTypeStubs = false
 
