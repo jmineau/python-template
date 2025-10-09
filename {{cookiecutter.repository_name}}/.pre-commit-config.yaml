@@ -24,3 +24,4 @@ repos:
     rev: v1.1.344
     hooks:
       - id: pyright
+        additional_dependencies: [.]
