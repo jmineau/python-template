@@ -27,6 +27,15 @@ jobs:
       run: |
         pre-commit run --all-files
 
+    - name: Lint with ruff
+      run: |
+        ruff check src/{{ cookiecutter.package_name }}
+
+    - name: Type checking with pyright
+      run: |
+        pyright src/{{ cookiecutter.package_name }}
+      continue-on-error: true
+
     - name: Check docstring coverage
       run: |
         docstr-coverage src/{{ cookiecutter.package_name }} --skip-magic --skip-init

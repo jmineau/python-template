@@ -21,7 +21,7 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/RobertCraigie/pyright-python
-    rev: v1.1.344
+    rev: v1.1.406
     hooks:
       - id: pyright
         additional_dependencies: [.]
