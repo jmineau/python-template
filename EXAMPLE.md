@@ -13,7 +13,9 @@ When prompted, you might enter:
 - `email`: jane@example.com
 - `github_username`: janedev
 - `project_name`: Awesome Tool
-- `project_slug`: awesome_tool (auto-generated)
+- `repository_name`: awesome-tool (auto-generated from project_name)
+- `package_name`: awesometool (auto-generated from project_name)
+- `project_slug`: awesometool (alias for package_name)
 - `project_short_description`: A tool for doing awesome things
 - `year`: 2025 (used to populate the LICENSE and other generated files; also used to form the default `version`)
 - `version`: 2025.1.0 (default, calver format)
@@ -22,7 +24,7 @@ When prompted, you might enter:
 ## Generated Structure
 
 ```
-awesome_tool/
+awesome-tool/
 ├── .github/
 │   └── workflows/          # GitHub Actions CI/CD
 │       ├── tests.yml       # Tests on multiple Python versions
@@ -37,7 +39,7 @@ awesome_tool/
 │   ├── Makefile           # Build documentation (Unix)
 │   └── make.bat           # Build documentation (Windows)
 ├── src/
-│   └── awesome_tool/      # Package source code
+│   └── awesometool/       # Package source code
 │       ├── __init__.py    # Package initialization
 │       └── py.typed       # PEP 561 type checking marker
 ├── tests/                 # Test files

@@ -8,7 +8,7 @@ Here's a simple example of how to use {{ cookiecutter.project_name }}:
 
 .. code-block:: python
 
-   import {{ cookiecutter.project_slug }}
+   import {{ cookiecutter.package_name }}
 
    # Add your usage examples here
 

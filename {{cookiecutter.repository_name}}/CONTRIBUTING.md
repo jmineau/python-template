@@ -7,8 +7,8 @@ Thank you for considering contributing to {{ cookiecutter.project_name }}! We we
 1. Fork the repository on GitHub
 2. Clone your fork locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/{{ cookiecutter.project_slug }}.git
-   cd {{ cookiecutter.project_slug }}
+   git clone https://github.com/YOUR_USERNAME/{{ cookiecutter.repository_name }}.git
+   cd {{ cookiecutter.repository_name }}
    ```
 3. Create a virtual environment and install development dependencies:
    ```bash
@@ -79,23 +79,23 @@ pytest
 
 Run tests with coverage:
 ```bash
-pytest --cov=src/{{ cookiecutter.project_slug }} --cov-report=html
+pytest --cov=src/{{ cookiecutter.package_name }} --cov-report=html
 ```
 
 Check code with ruff:
 ```bash
-ruff check src/{{ cookiecutter.project_slug }}
-ruff format src/{{ cookiecutter.project_slug }}
+ruff check src/{{ cookiecutter.package_name }}
+ruff format src/{{ cookiecutter.package_name }}
 ```
 
 Check type coverage:
 ```bash
-pyright src/{{ cookiecutter.project_slug }}
+pyright src/{{ cookiecutter.package_name }}
 ```
 
 Check docstring coverage:
 ```bash
-docstr-coverage src/{{ cookiecutter.project_slug }} --skip-magic --skip-init
+docstr-coverage src/{{ cookiecutter.package_name }} --skip-magic --skip-init
 ```
 
 ## Documentation
