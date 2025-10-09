@@ -1,15 +1,22 @@
 # Makefile for {{ cookiecutter.project_name }}
 
-.PHONY: help clean coverage lint check docs pre-commit
+.PHONY: help setup clean coverage lint check docs pre-commit
 
 help:
 	@echo "Available targets:"
+	@echo "  setup      - Set up development environment"
 	@echo "  clean      - Remove build artifacts and cache files"
 	@echo "  coverage   - Run tests with coverage report"
 	@echo "  lint       - Run ruff to fix code issues"
 	@echo "  check      - Run ruff check and pytest tests"
 	@echo "  docs       - Build HTML documentation"
 	@echo "  pre-commit - Run pre-commit hooks on all files"
+
+setup:
+	@echo "Setting up development environment..."
+	pip install -e ".[dev,docs]"
+	pre-commit install
+	@echo "Setup complete!"
 
 clean:
 	@echo "Cleaning up generated files..."
@@ -40,7 +47,7 @@ check:
 	@echo "Running ruff check..."
 	ruff check src/{{ cookiecutter.package_name }} tests/
 	@echo "Running tests..."
-	pytest
+	pytest -v
 
 docs:
 	@echo "Building HTML documentation..."

@@ -82,10 +82,11 @@ Automated code quality checks:
 
 Convenient development commands:
 - `make help` - Show available targets
+- `make setup` - Set up development environment (install deps, configure pre-commit)
 - `make clean` - Remove build artifacts and cache files
 - `make coverage` - Run tests with coverage report
 - `make lint` - Run ruff to fix code issues
-- `make check` - Run ruff check and pytest tests
+- `make check` - Run ruff check and pytest tests (with verbose output)
 - `make docs` - Build HTML documentation
 - `make pre-commit` - Run pre-commit hooks on all files
 
@@ -154,13 +155,10 @@ git commit -m "Initial commit from cookiecutter-python"
 # Set up development environment
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -e ".[dev]"
-
-# Install pre-commit hooks
-pre-commit install
+make setup
 
 # Run tests
-pytest
+pytest -v
 
 # Build documentation
 make docs
