@@ -5,7 +5,6 @@
     "project_name": "My Python Package",
     "repository_name": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
     "package_name": "{{ cookiecutter.project_name.lower().replace(' ', '').replace('-', '') }}",
-    "project_slug": "{{ cookiecutter.package_name }}",
     "project_short_description": "A short description of the project.",
     "year": "2025",
     "version": "{{ cookiecutter.year }}.1.0",
