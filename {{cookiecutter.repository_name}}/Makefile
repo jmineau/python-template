@@ -1,11 +1,12 @@
 # Makefile for {{ cookiecutter.project_name }}
 
-.PHONY: help setup clean coverage lint check docs pre-commit
+.PHONY: help setup clean test coverage lint check docs pre-commit
 
 help:
 	@echo "Available targets:"
 	@echo "  setup      - Set up development environment"
 	@echo "  clean      - Remove build artifacts and cache files"
+	@echo "  test       - Run tests with pytest"
 	@echo "  coverage   - Run tests with coverage report"
 	@echo "  lint       - Run ruff to fix code issues"
 	@echo "  check      - Run ruff check and pytest tests"
@@ -33,6 +34,10 @@ clean:
 	find . -type f -name '*.pyc' -delete
 	find . -type f -name '*.pyo' -delete
 	@echo "Clean complete!"
+
+test:
+	@echo "Running tests..."
+	pytest -v
 
 coverage:
 	@echo "Running tests with coverage..."

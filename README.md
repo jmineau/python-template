@@ -74,22 +74,17 @@ Once your project is generated, follow these steps:
    ```bash
    python -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   pip install -e ".[dev]"
+   make setup
    ```
 
-4. Set up pre-commit hooks:
-   ```bash
-   pre-commit install
-   ```
-
-5. Create a repository on GitHub and push your code:
+4. Create a repository on GitHub and push your code:
    ```bash
    git remote add origin https://github.com/YOUR_USERNAME/your-repository-name.git
    git branch -M main
    git push -u origin main
    ```
 
-6. Start developing! 🚀
+5. Start developing! 🚀
 
 ## What You Get
 

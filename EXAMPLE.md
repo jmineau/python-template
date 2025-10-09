@@ -84,6 +84,7 @@ Convenient development commands:
 - `make help` - Show available targets
 - `make setup` - Set up development environment (install deps, configure pre-commit)
 - `make clean` - Remove build artifacts and cache files
+- `make test` - Run tests with pytest
 - `make coverage` - Run tests with coverage report
 - `make lint` - Run ruff to fix code issues
 - `make check` - Run ruff check and pytest tests (with verbose output)
@@ -158,7 +159,7 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 make setup
 
 # Run tests
-pytest -v
+make test
 
 # Build documentation
 make docs
