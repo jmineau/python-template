@@ -51,9 +51,8 @@ Cookiecutter reads the configuration from `cookiecutter.json` and will prompt yo
 - `project_name`: The name of your project (e.g., "My Python Package")
 - `repository_name`: The repository name (auto-generated from project_name with spaces replaced by dashes)
 - `package_name`: The package name (auto-generated from project_name with spaces removed)
-- `project_slug`: Alias for package_name (maintained for backwards compatibility)
 - `project_short_description`: A brief description of your project
-- `year`: Year used for default values (e.g., 2025). This is used to populate files like the LICENSE and to generate the default `version`.
+- `year`: Year used for default values (e.g., 2025).
 - `version`: Initial version (default: 2025.1.0, calver format)
 - `python_version`: Minimum Python version (default: 3.10)
 

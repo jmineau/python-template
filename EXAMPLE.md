@@ -15,7 +15,6 @@ When prompted, you might enter:
 - `project_name`: Awesome Tool
 - `repository_name`: awesome-tool (auto-generated from project_name)
 - `package_name`: awesometool (auto-generated from project_name)
-- `project_slug`: awesometool (alias for package_name)
 - `project_short_description`: A tool for doing awesome things
 - `year`: 2025 (used to populate the LICENSE and other generated files; also used to form the default `version`)
 - `version`: 2025.1.0 (default, calver format)
