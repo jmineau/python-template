@@ -51,23 +51,20 @@ where = ["src"]
 
 [tool.ruff]
 target-version = "py310"
-line-length = 88
 select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # pyflakes
-    "I",   # isort
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
+    "E",  # pycodestyle
+    "F",  # Pyflakes
     "UP",  # pyupgrade
+    "B",  # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "I",  # isort
 ]
 ignore = [
     "E501",  # line too long, handled by formatter
 ]
 
 [tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
+docstring-code-format = false
 
 [tool.ruff.isort]
 known-first-party = ["{{ cookiecutter.package_name }}"]
