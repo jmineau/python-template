@@ -49,7 +49,9 @@ Cookiecutter reads the configuration from `cookiecutter.json` and will prompt yo
 - `email`: Your email address
 - `github_username`: Your GitHub username
 - `project_name`: The name of your project (e.g., "My Python Package")
-- `project_slug`: The package name (auto-generated from project_name)
+- `repository_name`: The repository name (auto-generated from project_name with spaces replaced by dashes)
+- `package_name`: The package name (auto-generated from project_name with spaces removed)
+- `project_slug`: Alias for package_name (maintained for backwards compatibility)
 - `project_short_description`: A brief description of your project
 - `year`: Year used for default values (e.g., 2025). This is used to populate files like the LICENSE and to generate the default `version`.
 - `version`: Initial version (default: 2025.1.0, calver format)
@@ -61,7 +63,7 @@ Once your project is generated, follow these steps:
 
 1. Navigate to your new project directory:
    ```bash
-   cd your_project_slug
+   cd your-repository-name
    ```
 
 2. Initialize a git repository:
@@ -85,7 +87,7 @@ Once your project is generated, follow these steps:
 
 5. Create a repository on GitHub and push your code:
    ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/your_project_slug.git
+   git remote add origin https://github.com/YOUR_USERNAME/your-repository-name.git
    git branch -M main
    git push -u origin main
    ```
@@ -97,7 +99,7 @@ Once your project is generated, follow these steps:
 After running cookiecutter, you'll have a complete project structure:
 
 ```
-your_project_slug/
+your-repository-name/
 ├── .github/
 │   └── workflows/          # GitHub Actions CI/CD workflows
 │       ├── tests.yml       # Run tests on multiple Python versions
@@ -112,7 +114,7 @@ your_project_slug/
 │   ├── Makefile
 │   └── make.bat
 ├── src/
-│   └── your_project_slug/  # Your package source code
+│   └── yourpackagename/    # Your package source code
 │       ├── __init__.py
 │       └── py.typed        # PEP 561 type checking marker
 ├── tests/                  # Test files

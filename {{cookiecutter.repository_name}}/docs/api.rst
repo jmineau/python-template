@@ -5,4 +5,4 @@ API Reference
    :toctree: _autosummary
    :recursive:
 
-   {{ cookiecutter.project_slug }}
+   {{ cookiecutter.package_name }}

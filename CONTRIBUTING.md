@@ -15,7 +15,7 @@ If you find any issues with the template or have suggestions for improvements, p
 To propose changes to the template:
 
 1. Fork the repository
-2. Make your changes to the template files in `{{cookiecutter.project_slug}}/`
+2. Make your changes to the template files in `{{cookiecutter.repository_name}}/`
 3. Test your changes by generating a new project:
    ```bash
    cookiecutter path/to/your/fork --no-input
@@ -34,7 +34,7 @@ Before submitting a pull request, please:
 
 2. Verify the generated project can be installed:
    ```bash
-   cd /tmp/test_output/my_python_package
+   cd /tmp/test_output/my-python-package
    python -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    pip install -e ".[dev]"
@@ -58,10 +58,10 @@ Before submitting a pull request, please:
 ## Template Structure
 
 - `cookiecutter.json`: Template configuration and default values
-- `{{cookiecutter.project_slug}}/`: The template directory (gets renamed based on user input)
+- `{{cookiecutter.repository_name}}/`: The template directory (gets renamed based on user input)
   - `.github/workflows/`: CI/CD workflows
   - `docs/`: Sphinx documentation structure
-  - `src/{{cookiecutter.project_slug}}/`: Package source code (with py.typed)
+  - `src/{{cookiecutter.package_name}}/`: Package source code (with py.typed)
   - `tests/`: Test files
   - Configuration files (`.pre-commit-config.yaml`, `pyproject.toml`, etc.)
 

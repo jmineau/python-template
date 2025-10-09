@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "{{ cookiecutter.project_slug }}"
+name = "{{ cookiecutter.package_name }}"
 version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.project_short_description }}"
 readme = "README.md"
@@ -38,16 +38,16 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
-Documentation = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.project_slug }}/"
-Repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
-Issues = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues"
+Homepage = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}"
+Documentation = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.repository_name }}/"
+Repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}"
+Issues = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-"{{ cookiecutter.project_slug }}" = ["py.typed"]
+"{{ cookiecutter.package_name }}" = ["py.typed"]
 
 [tool.ruff]
 target-version = "py310"
@@ -70,14 +70,14 @@ quote-style = "double"
 indent-style = "space"
 
 [tool.ruff.isort]
-known-first-party = ["{{ cookiecutter.project_slug }}"]
+known-first-party = ["{{ cookiecutter.package_name }}"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "--cov=src/{{ cookiecutter.project_slug }} --cov-report=term-missing --cov-report=html --cov-report=xml"
+addopts = "--cov=src/{{ cookiecutter.package_name }} --cov-report=term-missing --cov-report=html --cov-report=xml"
 
 [tool.pyright]
 include = ["src"]
@@ -87,7 +87,7 @@ typeCheckingMode = "basic"
 reportMissingTypeStubs = false
 
 [tool.coverage.run]
-source = ["src/{{ cookiecutter.project_slug }}"]
+source = ["src/{{ cookiecutter.package_name }}"]
 omit = ["*/tests/*", "*/test_*.py"]
 
 [tool.coverage.report]
