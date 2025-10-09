@@ -47,6 +47,7 @@ awesome-tool/
 ├── .pre-commit-config.yaml # Pre-commit hooks
 ├── CONTRIBUTING.md        # Contribution guidelines
 ├── LICENSE                # MIT License
+├── Makefile               # Development tasks (clean, lint, test, docs, etc.)
 ├── pyproject.toml         # Modern Python packaging
 └── README.md              # Project README
 ```
@@ -76,6 +77,17 @@ Automated code quality checks:
 - debug-statements
 - **ruff** - linting and formatting (replaces black, isort, flake8)
 - **pyright** - type checking
+
+### Makefile
+
+Convenient development commands:
+- `make help` - Show available targets
+- `make clean` - Remove build artifacts and cache files
+- `make coverage` - Run tests with coverage report
+- `make lint` - Run ruff to fix code issues
+- `make check` - Run ruff check and pytest tests
+- `make docs` - Build HTML documentation
+- `make pre-commit` - Run pre-commit hooks on all files
 
 ### README.md
 
@@ -151,8 +163,7 @@ pre-commit install
 pytest
 
 # Build documentation
-cd docs
-make html
+make docs
 ```
 
 ## Customization

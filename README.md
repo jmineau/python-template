@@ -121,6 +121,7 @@ your-repository-name/
 ├── .pre-commit-config.yaml # Pre-commit hooks configuration
 ├── CONTRIBUTING.md         # Contributing guidelines
 ├── LICENSE                 # MIT License
+├── Makefile                # Development tasks (clean, lint, test, docs, etc.)
 ├── pyproject.toml          # Modern Python project configuration
 └── README.md               # Project README
 ```
