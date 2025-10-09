@@ -37,17 +37,17 @@ Before submitting a pull request, please:
    cd /tmp/test_output/my-python-package
    python -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   pip install -e ".[dev]"
+   make setup
    ```
 
 3. Run the tests:
    ```bash
-   pytest
+   make test
    ```
 
 4. Verify pre-commit hooks work:
    ```bash
-   pre-commit run --all-files
+   make pre-commit
    ```
 
 5. Clean up:

@@ -47,6 +47,7 @@ awesome-tool/
 ├── .pre-commit-config.yaml # Pre-commit hooks
 ├── CONTRIBUTING.md        # Contribution guidelines
 ├── LICENSE                # MIT License
+├── Makefile               # Development tasks (clean, lint, test, docs, etc.)
 ├── pyproject.toml         # Modern Python packaging
 └── README.md              # Project README
 ```
@@ -76,6 +77,19 @@ Automated code quality checks:
 - debug-statements
 - **ruff** - linting and formatting (replaces black, isort, flake8)
 - **pyright** - type checking
+
+### Makefile
+
+Convenient development commands:
+- `make help` - Show available targets
+- `make setup` - Set up development environment (install deps, configure pre-commit)
+- `make clean` - Remove build artifacts and cache files
+- `make test` - Run tests with pytest
+- `make coverage` - Run tests with coverage report
+- `make lint` - Run ruff to fix code issues
+- `make check` - Run ruff check and pytest tests (with verbose output)
+- `make docs` - Build HTML documentation
+- `make pre-commit` - Run pre-commit hooks on all files
 
 ### README.md
 
@@ -142,17 +156,13 @@ git commit -m "Initial commit from cookiecutter-python"
 # Set up development environment
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -e ".[dev]"
-
-# Install pre-commit hooks
-pre-commit install
+make setup
 
 # Run tests
-pytest
+make test
 
 # Build documentation
-cd docs
-make html
+make docs
 ```
 
 ## Customization
