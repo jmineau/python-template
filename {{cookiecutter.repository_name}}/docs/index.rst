@@ -9,8 +9,8 @@
    :target: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}/actions/workflows/docs.yml
    :alt: Documentation
 
-.. image:: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}/actions/workflows/lint.yml/badge.svg
-   :target: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}/actions/workflows/lint.yml
+.. image:: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}/actions/workflows/quality.yml/badge.svg
+   :target: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}/actions/workflows/quality.yml
    :alt: Code Quality
 
 .. image:: https://codecov.io/gh/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}/branch/main/graph/badge.svg
@@ -33,6 +33,10 @@
    :target: https://github.com/astral-sh/ruff
    :alt: Ruff
 
+.. image:: https://img.shields.io/badge/pyright-checked-brightgreen.svg
+   :target: https://github.com/microsoft/pyright
+   :alt: Pyright
+
 {{ cookiecutter.project_short_description }}
 
 .. toctree::
@@ -44,18 +48,9 @@
    api
    contributing
 
-Installation
-============
-
 .. include:: installation.rst
 
-Usage
-=====
-
 .. include:: usage.rst
-
-API Reference
-=============
 
 .. include:: api.rst
 

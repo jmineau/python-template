@@ -10,7 +10,7 @@ Here's a simple example of how to use {{ cookiecutter.project_name }}:
 
    import {{ cookiecutter.package_name }}
 
-   # Add your usage examples here
+   # Add usage examples here
 
 Advanced Usage
 --------------

@@ -10,12 +10,20 @@ Thank you for considering contributing to {{ cookiecutter.project_name }}! We we
    git clone https://github.com/YOUR_USERNAME/{{ cookiecutter.repository_name }}.git
    cd {{ cookiecutter.repository_name }}
    ```
-3. Create a virtual environment and install development dependencies:
+3. Create a python environment and install development dependencies:
    ```bash
+   # Using venv:
    python -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+   # OR using conda:
+   conda create -n myenv python=3.10 -y
+   conda activate myenv
+
+   # Install development dependencies:
    pip install -e ".[dev]"
    ```
+
 4. Install pre-commit hooks:
    ```bash
    pre-commit install
@@ -34,80 +42,33 @@ Thank you for considering contributing to {{ cookiecutter.project_name }}! We we
    - New features include tests
    - Documentation is updated if needed
 
-3. Run the test suite:
+3. Run quality checks:
    ```bash
-   pytest
+   just quality-check
    ```
 
-4. Run pre-commit checks:
+4. Run test suite:
    ```bash
-   pre-commit run --all-files
+   just test
    ```
 
-5. Commit your changes:
+5. Run pre-commit checks:
+   ```bash
+   just pre-commit
+   ```
+
+6. Commit your changes:
    ```bash
    git add .
    git commit -m "Description of your changes"
    ```
 
-6. Push to your fork:
+7. Push to your fork:
    ```bash
    git push origin feature/your-feature-name
    ```
 
-7. Open a Pull Request on GitHub
-
-## Code Style
-
-This project uses:
-- **Ruff** for code formatting and linting (replaces Black, isort, and flake8)
-- **Pyright** for static type checking
-
-Pre-commit hooks will automatically check and format your code before each commit.
-
-## Testing
-
-- Write tests for all new features and bug fixes
-- Place tests in the `tests/` directory
-- Use pytest for testing
-- Aim for high test coverage
-
-Run tests with:
-```bash
-pytest
-```
-
-Run tests with coverage:
-```bash
-pytest --cov=src/{{ cookiecutter.package_name }} --cov-report=html
-```
-
-Check code with ruff:
-```bash
-ruff check src/{{ cookiecutter.package_name }}
-ruff format src/{{ cookiecutter.package_name }}
-```
-
-Check type coverage:
-```bash
-pyright src/{{ cookiecutter.package_name }}
-```
-
-Check docstring coverage:
-```bash
-docstr-coverage src/{{ cookiecutter.package_name }} --skip-magic --skip-init
-```
-
-## Documentation
-
-- Update documentation for any changed functionality
-- Add docstrings to all public functions, classes, and modules
-- Use the NumPy docstring style
-- Build docs locally to verify changes:
-  ```bash
-  cd docs
-  make html
-  ```
+8. Open a Pull Request on GitHub
 
 ## Pull Request Guidelines
 

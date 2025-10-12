@@ -7,13 +7,13 @@ A [Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for crea
 This template provides a complete Python package structure with:
 
 - 📦 **Modern Python packaging** with `pyproject.toml`
-- 🎨 **Code formatting** with Black (pre-commit hooks included)
-- ✅ **Pre-commit hooks** for automated code quality checks
+- 🎨 **Code formatting** with ruff (pre-commit hooks included)
 - 📚 **Sphinx documentation** with PyData theme
 - 🧪 **Testing setup** with pytest and coverage
-- 🤝 **Contributing guidelines** for open source collaboration
+- ✅ **Pre-commit hooks** for automated code quality checks
 - 🔧 **GitHub Actions workflows** for CI/CD
-- 📝 **Python .gitignore** with sensible defaults
+- 🤝 **Contributing guidelines** for open source collaboration
+- 📝 **Python .gitignore** from github/gitignore/Python.gitignore
 
 ## Requirements
 
@@ -70,11 +70,20 @@ Once your project is generated, follow these steps:
    git commit -m "Initial commit from cookiecutter-python"
    ```
 
-3. Create a virtual environment and install dependencies:
+3. Create an environment and install dependencies:
    ```bash
+   # Using venv:
    python -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   make setup
+
+   # OR with conda:
+   conda create -n myenv python=3.10 -y
+   conda activate myenv
+
+   # Install development dependencies:
+   python -m pip install --upgrade pip
+   pip install -e ".[dev,docs]"
+   pre-commit install
    ```
 
 4. Create a repository on GitHub and push your code:
@@ -84,7 +93,20 @@ Once your project is generated, follow these steps:
    git push -u origin main
    ```
 
-5. Start developing! 🚀
+5. Enable GitHub Actions workflows in your repository settings.
+   > Go to Settings > Actions > General > Action Permissions
+
+6. Enable GitHub Pages from GitHub Actions in your repository settings.
+   > - Go to Settings > Pages > Source > GitHub Actions
+   > - View your documentation at https://YOUR_USERNAME.github.io/your-repository-name
+
+7. Add your Codecov repository token to GitHub Secrets for coverage reporting.
+   > - Follow steps 1-2 in https://docs.codecov.com/docs/quick-start to get your token.
+   > - Go to Settings > Secrets and variables > Actions > New repository secret
+   > - Name: `CODECOV_TOKEN`; Value: `your token from Codecov`
+   > - View your code coverage report at https://app.codecov.io/gh/YOUR_USERNAME/your-repository-name
+
+8. Start developing! 🚀
 
 ## What You Get
 
@@ -94,29 +116,27 @@ After running cookiecutter, you'll have a complete project structure:
 your-repository-name/
 ├── .github/
 │   └── workflows/          # GitHub Actions CI/CD workflows
-│       ├── tests.yml       # Run tests on multiple Python versions
 │       ├── docs.yml        # Build and deploy documentation
-│       └── lint.yml        # Code quality checks
+│       ├── quality.yml     # Code quality checks
+│       └── tests.yml       # Run tests on multiple Python versions
 ├── docs/                   # Sphinx documentation
-│   ├── conf.py
+│   ├── api.rst
+│   ├── conf.py             # Sphinx configuration
 │   ├── index.rst
 │   ├── installation.rst
-│   ├── usage.rst
-│   ├── api.rst
-│   ├── Makefile
-│   └── make.bat
+│   └── usage.rst
 ├── src/
 │   └── yourpackagename/    # Your package source code
 │       ├── __init__.py
 │       └── py.typed        # PEP 561 type checking marker
 ├── tests/                  # Test files
 │   ├── __init__.py
-│   └── test_basic.py
+│   └── test_pkg.py         # Test for pkg metadata
 ├── .gitignore              # Python .gitignore
 ├── .pre-commit-config.yaml # Pre-commit hooks configuration
 ├── CONTRIBUTING.md         # Contributing guidelines
+├── justfile                # Development tasks (build-docs, clean, test, etc.)
 ├── LICENSE                 # MIT License
-├── Makefile                # Development tasks (clean, lint, test, docs, etc.)
 ├── pyproject.toml          # Modern Python project configuration
 └── README.md               # Project README
 ```
@@ -146,7 +166,6 @@ your-repository-name/
 ### Package Management
 
 - **pip**: Traditional Python package installer (via pyproject.toml)
-- **uv**: Modern, fast package installer (compatible with pyproject.toml)
 
 ### CI/CD
 

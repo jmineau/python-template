@@ -1,15 +1,6 @@
 Installation
 ============
 
-From PyPI
----------
-
-The easiest way to install {{ cookiecutter.project_name }} is using pip:
-
-.. code-block:: bash
-
-   pip install {{ cookiecutter.package_name }}
-
 From Source
 -----------
 
@@ -30,7 +21,8 @@ For development, install with the development dependencies:
 
    git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}.git
    cd {{ cookiecutter.repository_name }}
-   pip install -e ".[dev]"
+   python -m pip install --upgrade pip
+   pip install -e ".[dev,docs]"
    pre-commit install
 
 Requirements

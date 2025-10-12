@@ -15,10 +15,10 @@ jobs:
         python-version: ['3.10', '3.11', '3.12']
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Set up Python {% raw %}${{ matrix.python-version }}{% endraw %}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
 
@@ -29,12 +29,16 @@ jobs:
 
     - name: Run tests with pytest
       run: |
-        pytest --cov={{ cookiecutter.package_name }} --cov-report=xml
+        pytest -v --cov={{ cookiecutter.package_name }} --junitxml=junit.xml -o junit_family=legacy
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10'
+      uses: codecov/codecov-action@v5
+      if: {% raw %}${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10' && !cancelled() }}{% endraw %}
       with:
         token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
-        file: ./coverage.xml
-        fail_ci_if_error: false
+
+    - name: Upload test results to Codecov
+      if: {% raw %}${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10' && !cancelled() }}{% endraw %}
+      uses: codecov/test-results-action@v1
+      with:
+        token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}

@@ -7,14 +7,14 @@ on:
     branches: [ main ]
 
 jobs:
-  lint:
+  quality-check:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: '3.10'
 
@@ -25,14 +25,14 @@ jobs:
 
     - name: Lint with ruff
       run: |
-        ruff check src/{{ cookiecutter.package_name }}
+        ruff check --output-format=github src/{{ cookiecutter.package_name }}
 
     - name: Type checking with pyright
+      if: {% raw %}${{ !cancelled() }}{% endraw %}
       run: |
         pyright src/{{ cookiecutter.package_name }}
-      continue-on-error: true
 
     - name: Check docstring coverage
+      if: {% raw %}${{ !cancelled() }}{% endraw %}
       run: |
         docstr-coverage src/{{ cookiecutter.package_name }} --skip-magic --skip-init
-      continue-on-error: true

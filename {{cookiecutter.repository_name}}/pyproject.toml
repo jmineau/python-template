@@ -21,19 +21,23 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
+# dependencies = [
+# Add project dependencies here
+# ]
 
 [project.optional-dependencies]
 dev = [
-    "ruff>=0.1.0",
+    "docstr-coverage>=2.0.0",
     "pre-commit>=3.0.0",
+    "pyright>=1.1.0",
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
-    "pyright>=1.1.0",
-    "docstr-coverage>=2.0.0",
+    "ruff>=0.1.0",
+    "rust-just>=1.42.4",
 ]
 docs = [
-    "sphinx>=7.0.0",
     "pydata-sphinx-theme>=0.14.0",
+    "sphinx>=7.0.0",
     "sphinx-autodoc-typehints>=1.24.0",
 ]
 
@@ -43,14 +47,41 @@ Documentation = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiec
 Repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}"
 Issues = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repository_name }}/issues"
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.coverage.run]
+source = ["src/{{ cookiecutter.package_name }}"]
+omit = ["*/tests/*", "*/test_*.py"]
 
-[tool.setuptools.package-data]
-"{{ cookiecutter.package_name }}" = ["py.typed"]
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_also = [
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "if self\\.debug",
+
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+
+    # Don't complain about abstract methods, they aren't run:
+    "@(abc\\.)?abstractmethod",
+    ]
+
+[tool.pyright]
+include = ["src"]
+exclude = ["**/__pycache__", "**/.venv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [tool.ruff]
 target-version = "py310"
+
+[tool.ruff.format]
+docstring-code-format = true
 
 [tool.ruff.lint]
 select = [
@@ -68,34 +99,8 @@ ignore = [
 [tool.ruff.lint.isort]
 known-first-party = ["{{ cookiecutter.package_name }}"]
 
-[tool.ruff.format]
-docstring-code-format = true
+[tool.setuptools.packages.find]
+where = ["src"]
 
-[tool.pyright]
-include = ["src"]
-exclude = ["**/__pycache__", "**/.venv"]
-pythonVersion = "3.10"
-reportMissingTypeStubs = false
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
-addopts = "--cov=src/{{ cookiecutter.package_name }} --cov-report=term-missing --cov-report=html --cov-report=xml"
-
-[tool.coverage.run]
-source = ["src/{{ cookiecutter.package_name }}"]
-omit = ["*/tests/*", "*/test_*.py"]
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if __name__ == .__main__.:",
-    "if TYPE_CHECKING:",
-    "class .*\\bProtocol\\):",
-    "@(abc\\.)?abstractmethod",
-]
+[tool.setuptools.package-data]
+"{{ cookiecutter.package_name }}" = ["py.typed"]

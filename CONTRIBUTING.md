@@ -37,33 +37,25 @@ Before submitting a pull request, please:
    cd /tmp/test_output/my-python-package
    python -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   make setup
+   python -m pip install --upgrade pip
+   pip install -e ".[dev,docs]"
+   pre-commit install
    ```
 
-3. Run the tests:
+3. Run the checks:
    ```bash
-   make test
+   just quality-check
    ```
 
 4. Verify pre-commit hooks work:
    ```bash
-   make pre-commit
+   just pre-commit
    ```
 
 5. Clean up:
    ```bash
    rm -rf /tmp/test_output
    ```
-
-## Template Structure
-
-- `cookiecutter.json`: Template configuration and default values
-- `{{cookiecutter.repository_name}}/`: The template directory (gets renamed based on user input)
-  - `.github/workflows/`: CI/CD workflows
-  - `docs/`: Sphinx documentation structure
-  - `src/{{cookiecutter.package_name}}/`: Package source code (with py.typed)
-  - `tests/`: Test files
-  - Configuration files (`.pre-commit-config.yaml`, `pyproject.toml`, etc.)
 
 ## Guidelines
 
