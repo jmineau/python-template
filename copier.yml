@@ -107,6 +107,17 @@ publish_to_pypi:
   help: Publish releases to PyPI (trusted publishing)?
   default: true
 
+test_os:
+  type: str
+  help: Operating systems the tests run on
+  multiselect: true
+  choices:
+    Linux: ubuntu-latest
+    macOS: macos-latest
+    Windows: windows-latest
+  default: [ubuntu-latest, macos-latest, windows-latest]
+  validator: "{% if 'ubuntu-latest' not in test_os %}Include Linux: coverage uploads from it{% endif %}"
+
 copyright_year:
   type: str
   help: Year for the LICENSE copyright line
