@@ -22,7 +22,7 @@ Contribution mechanics are in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 - `src/{{ package_name }}/`: the package (`py.typed` ships, so annotations are public API).
 - `tests/`: pytest suite.
-- `docs/`: Sphinx site (PyData theme); `docs/api.rst` drives the autosummary API pages.
+- `docs/`: Sphinx site (PyData theme). `docs/api.rst` lists the API by topic; each class gets a page with tables of its attributes and methods, and each member a page of its own (`docs/_templates/autosummary/`, `docs/_ext/api_pages.py`).
 
 ## Commands
 
