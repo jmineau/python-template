@@ -17,7 +17,7 @@ _message_after_copy: |
     uv run just quality-check
 
   The version comes from git tags (setuptools-scm). Tag the first release as
-  v0.1.0 once there is something to release; until then the version is 0.1.devN.
+  v0.1.0 once there is something to release; until then the version is 0.0.1.devN.
 
   GitHub setup (once):
     - Settings > Pages > Source: GitHub Actions. Then Settings > Environments >
