@@ -48,8 +48,9 @@ After editing dependencies in `pyproject.toml`, run `uv lock` and commit
 ## Conventions
 
 - Python {{ python_min }}+; prefer stdlib features over backports.
-- Ruff lint rules `E, F, UP, B, SIM, I, D213, NPY, RUF100`; line length is the
-  formatter's business. Suppress a rule inline with a reason (`# noqa: B008 - why`).
+- Ruff lint rules `E, F, UP, B, SIM, I, D, D213, NPY, RUF100` (pydocstyle with
+  the NumPy convention); line length is the formatter's business. Suppress a
+  rule inline with a reason (`# noqa: B008 - why`).
 - NumPy-style docstrings, with the summary on the second line (D213):
 
   ```python

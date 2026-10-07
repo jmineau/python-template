@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [{{ test_os | join(', ') }}]
         python-version: [{% for minor in range(python_min_minor, python_max_minor + 1) %}"3.{{ minor }}"{% if not loop.last %}, {% endif %}{% endfor %}]
     env:
       UV_NO_SYNC: "1"  # `just` recipes run in the environment synced below
