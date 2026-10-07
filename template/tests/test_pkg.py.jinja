@@ -1,0 +1,11 @@
+"""Test package metadata."""
+
+from importlib.metadata import version
+
+import {{ package_name }}
+
+
+def test_version():
+    """`__version__` is the installed distribution's version."""
+    assert isinstance({{ package_name }}.__version__, str)
+    assert {{ package_name }}.__version__ == version("{{ distribution_name }}")

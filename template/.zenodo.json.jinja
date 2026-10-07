@@ -1,0 +1,21 @@
+{
+  "title": "{{ project_name }}",
+  "description": "{{ project_short_description }}",
+  "creators": [
+    {
+{%- if ' ' in full_name.strip() %}
+      "name": "{{ full_name.strip().rsplit(' ', 1)[1] }}, {{ full_name.strip().rsplit(' ', 1)[0] }}"
+{%- else %}
+      "name": "{{ full_name }}"
+{%- endif %}
+{%- if affiliation %},
+      "affiliation": "{{ affiliation }}"
+{%- endif %}
+{%- if orcid %},
+      "orcid": "{{ orcid }}"
+{%- endif %}
+    }
+  ],
+  "license": "MIT",
+  "upload_type": "software"
+}

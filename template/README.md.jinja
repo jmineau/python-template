@@ -1,0 +1,62 @@
+# {{ project_name }}
+
+[![Tests](https://github.com/{{ github_username }}/{{ repository_name }}/actions/workflows/tests.yml/badge.svg)](https://github.com/{{ github_username }}/{{ repository_name }}/actions/workflows/tests.yml)
+[![Code Quality](https://github.com/{{ github_username }}/{{ repository_name }}/actions/workflows/quality.yml/badge.svg)](https://github.com/{{ github_username }}/{{ repository_name }}/actions/workflows/quality.yml)
+[![Documentation](https://github.com/{{ github_username }}/{{ repository_name }}/actions/workflows/docs.yml/badge.svg)](https://{{ github_username }}.github.io/{{ repository_name }}/)
+[![codecov](https://codecov.io/gh/{{ github_username }}/{{ repository_name }}/branch/main/graph/badge.svg)](https://codecov.io/gh/{{ github_username }}/{{ repository_name }})
+{%- if publish_to_pypi %}
+[![PyPI](https://img.shields.io/pypi/v/{{ distribution_name }}.svg)](https://pypi.org/project/{{ distribution_name }}/)
+[![Python versions](https://img.shields.io/pypi/pyversions/{{ distribution_name }}.svg)](https://pypi.org/project/{{ distribution_name }}/)
+{%- endif %}
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
+{{ project_short_description }}
+
+## Installation
+
+{%- if publish_to_pypi %}
+
+```bash
+pip install {{ distribution_name }}
+```
+
+or the development version from GitHub:
+{%- else %}
+
+From GitHub:
+{%- endif %}
+
+```bash
+pip install git+https://github.com/{{ github_username }}/{{ repository_name }}
+```
+
+{{ project_name }} requires Python {{ python_min }} or newer.
+
+## Usage
+
+```python
+import {{ package_name }}
+```
+
+## Documentation
+
+<https://{{ github_username }}.github.io/{{ repository_name }}/>
+
+## Contributing
+
+Contributions are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). In short:
+
+```bash
+uv sync                    # .venv with the package and the dev tools
+uv run pre-commit install
+just quality-check         # lint, type check, docstrings, tests
+```
+
+## Citing
+
+If you use {{ project_name }} in your research, please cite it: GitHub's "Cite this repository" button reads [CITATION.cff](CITATION.cff).
+
+## License
+
+MIT; see [LICENSE](LICENSE).
