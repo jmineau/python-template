@@ -39,7 +39,7 @@ jobs:
           persist-credentials: false
           fetch-depth: 0  # setuptools-scm reads the version from tags
 
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.2.0
         with:
           version: "{{ uv_version }}"
           python-version: "{{ python_max }}"
@@ -82,7 +82,7 @@ jobs:
           name: docs-html
           path: html
 
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.2.0
         with:
           version: "{{ uv_version }}"
 
