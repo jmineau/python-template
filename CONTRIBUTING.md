@@ -47,4 +47,7 @@ must do by hand, in the release notes.
 - Encode what the packages actually do; a convention earns its place here once
   it has proved itself in a real package.
 - Keep generated projects passing `just test`, repo-review, actionlint and zizmor.
+- Reference actions by a tag that exists. Most publish moving major tags
+  (`actions/checkout@v7`); astral-sh/setup-uv stopped doing so in v8, so it is
+  pinned to an exact release (`@v10.2.0`), which Dependabot keeps current.
 - Commit messages follow Conventional Commits.
