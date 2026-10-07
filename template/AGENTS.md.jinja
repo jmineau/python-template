@@ -74,8 +74,10 @@ After editing dependencies in `pyproject.toml`, run `uv lock` and commit
 
 - `network`: needs live network access; `slow`: expensive. Both are skipped by
   `just test` and in CI; run them with `uv run pytest -m network` or `-m slow`.
-- Markers are strict, and warnings are errors: register new markers, and ignore a
-  specific third-party warning, in `[tool.pytest]` in `pyproject.toml`.
+- Markers are strict, and warnings are errors: register new markers in
+  `[tool.pytest]` in `pyproject.toml`. A test that triggers a warning on purpose
+  asserts it (`with pytest.warns(UserWarning, match="..."):`); a third-party
+  warning is ignored by message and module in `[tool.pytest]` `filterwarnings`.
 - `just test` runs in parallel (pytest-xdist); tests must not depend on order or
   shared state. Debug with a serial `uv run pytest tests/test_x.py -x`.
 - Tests must not depend on machine-specific paths or data.

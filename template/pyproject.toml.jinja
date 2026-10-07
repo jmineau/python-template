@@ -107,6 +107,9 @@ ignore = [
 
 [tool.ruff.format]
 docstring-code-format = true
+# ruff also formats code blocks in Markdown; these keep their examples as written
+# (e.g. hand-aligned comments).
+exclude = ["README.md", "AGENTS.md"]
 
 [tool.ruff.lint]
 select = [
