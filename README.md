@@ -50,13 +50,14 @@ git-style markers) and commit it like any other change.
 | Versions | [setuptools-scm](https://setuptools-scm.readthedocs.io): the version is the git tag; `.devN` versions between releases |
 | Lint and format | [ruff](https://docs.astral.sh/ruff/) (`E F UP B SIM I D213 NPY RUF100`) |
 | Types | [pyrefly](https://pyrefly.org) |
-| Tests | pytest 9 (strict, warnings are errors, `network`/`slow` markers), pytest-cov, Codecov |
+| Tests | pytest 9 (strict, warnings are errors, `network`/`slow` markers), parallel with pytest-xdist, pytest-cov, Codecov |
 | Docstrings | NumPy style, [docstr-coverage](https://github.com/HunterMcGushion/docstr_coverage) ≥ 95% |
-| Docs | Sphinx + PyData theme, autosummary API pages, built with warnings as errors, deployed to GitHub Pages from `main` |
-| pre-commit | pre-commit-hooks, rST checks, validate-pyproject, `uv-lock`, ruff, [zizmor](https://docs.zizmor.sh), pyrefly |
+| Docs | Sphinx + PyData theme, autosummary API pages, copy buttons, live preview (`just docs-serve`), built with warnings as errors; versioned on GitHub Pages (`dev/`, one folder per release, `stable/`) with a version dropdown |
+| pre-commit | pre-commit-hooks, rST checks, validate-pyproject, [zizmor](https://docs.zizmor.sh); `uv lock`, ruff and pyrefly run from `.venv`, so `uv.lock` pins their versions |
+| Changelog | Keep a Changelog, hand-edited; `just changelog` drafts entries from Conventional Commits ([git-cliff](https://git-cliff.org)) |
 | CI | Tests (Linux/macOS/Windows × all supported Pythons), Code Quality, Documentation, Publish (tag push → PyPI trusted publishing with attestations → GitHub Release from CHANGELOG → Zenodo) |
-| Upkeep | Dependabot for actions (monthly, grouped, 7-day cooldown) |
-| Project files | AGENTS.md, CONTRIBUTING.md, CHANGELOG.md (Keep a Changelog), CITATION.cff, `.zenodo.json`, issue forms, PR template |
+| Upkeep | Dependabot for actions, pre-commit hooks and `uv.lock` (monthly, grouped, 7-day cooldown; never raises minimum versions) |
+| Project files | AGENTS.md, CONTRIBUTING.md, CHANGELOG.md, CITATION.cff, `.zenodo.json`, issue forms, PR template |
 
 Generated projects score clean on the Scientific Python
 [repo-review](https://learn.scientific-python.org/development/guides/repo-review/)

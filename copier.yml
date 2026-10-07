@@ -19,9 +19,14 @@ _message_after_copy: |
   The version comes from git tags (setuptools-scm). Tag the first release as
   v0.1.0 once there is something to release; until then the version is 0.1.devN.
 
-  GitHub setup: Settings > Pages > Source: GitHub Actions; add a CODECOV_TOKEN
-  secret{% if publish_to_pypi %}; add a trusted publisher on PyPI for workflow
-  publish.yml, environment "pypi"{% endif %}.
+  GitHub setup (once):
+    - Settings > Pages > Source: GitHub Actions. Then Settings > Environments >
+      github-pages > Deployment branches and tags: add the tag rule v*, so
+      release tags can publish their docs.
+    - Settings > Secrets and variables > Actions: add CODECOV_TOKEN.{% if publish_to_pypi %}
+    - On PyPI, add a trusted publisher: workflow publish.yml, environment pypi.
+      Optionally, Settings > Environments > pypi > Required reviewers: you, so
+      each upload waits for your approval.{% endif %}
 
   Pull later template changes with: copier update
 
@@ -127,5 +132,5 @@ python_max_minor:
 
 uv_version:
   type: str
-  default: "0.10.4"
+  default: "0.12.23"
   when: false
