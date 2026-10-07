@@ -35,16 +35,20 @@ Changelog = "https://github.com/{{ github_username }}/{{ repository_name }}/blob
 # Dev tooling and docs together; `uv sync` installs it by default.
 dev = [
     "docstr-coverage>=2.3",
+    "git-cliff>=2.10",  # `just changelog`
     "pre-commit>=4.0",
     "pydata-sphinx-theme>=0.16",
     "pyrefly>=1.3",
     "pytest>=9.0",
     "pytest-cov>=6.0",
+    "pytest-xdist>=3.6",
     "ruff>=0.16",
     "rust-just>=1.40",
     "setuptools-scm>=8",  # `just version`
     "sphinx>=8.1",
+    "sphinx-autobuild>=2024.10",  # `just docs-serve`
     "sphinx-autodoc-typehints>=3.0",
+    "sphinx-copybutton>=0.5",
     "twine>=6.0",  # `just dist`
 ]
 
@@ -85,6 +89,7 @@ markers = [
 ignore = [
     "PY007",  # task runner: just, not nox/tox
     "MY101",  # pyrefly's default preset; tighten per project
+    "PC110", "PC190",  # ruff runs as a local `uv run` hook, so uv.lock pins its version
     "PC140",  # pyrefly runs as a local `uv run` hook, so it sees the project's dependencies
     "PC160",  # no spell checker
     "PC180",  # no markdown formatter
@@ -128,7 +133,7 @@ where = ["src"]
 fallback_version = "0.0.0"  # no git metadata at all (e.g. a bare source copy)
 
 [tool.uv]
-required-version = ">={{ uv_version }}"
+required-version = ">={{ uv_version.rsplit('.', 1)[0] }}"
 # Rebuild the editable install when pyproject.toml or the git state changes, so
 # `__version__` follows new commits and tags.
 cache-keys = [{ file = "pyproject.toml" }, { git = { commit = true, tags = true } }]

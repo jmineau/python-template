@@ -54,6 +54,17 @@ test:
         echo "after one more commit: $dev"
         case "$dev" in 0.1.1.dev1+g*) ;; *) echo "expected 0.1.1.dev1+g..., got $dev" >&2; exit 1;; esac
         echo "::endgroup::"
+
+        echo "::group::changelog draft publish_to_pypi=$pypi"
+        git_ commit --quiet --allow-empty -m "feat(io): read the new format"
+        git_ commit --quiet --allow-empty -m "fix!: drop the old reader"
+        notes="$(uv run just changelog)"
+        echo "$notes"
+        grep -q '^### Added' <<<"$notes"
+        grep -qF -- '- Read the new format (io)' <<<"$notes"
+        grep -qF -- '- **Breaking:** Drop the old reader' <<<"$notes"
+        ! grep -q 'a commit after the release' <<<"$notes"  # chore commits are left out
+        echo "::endgroup::"
         cd "$template"
     done
     echo "All checks passed for both variants."

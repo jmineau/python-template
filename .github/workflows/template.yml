@@ -26,7 +26,7 @@ jobs:
 
       - uses: astral-sh/setup-uv@v10
         with:
-          version: "0.10.4"  # keep equal to uv_version in copier.yml
+          version: "0.12.23"  # keep equal to uv_version in copier.yml
 
       - name: Install just
         run: uv tool install rust-just

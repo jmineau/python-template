@@ -33,12 +33,14 @@ runs the same recipes.
 |---|---|
 | Set up / refresh `.venv` | `uv sync` |
 | Everything CI checks | `just quality-check` |
-| Tests (no network/slow) | `just test` (extra args go to pytest) |
+| Tests (no network/slow) | `just test` (parallel; extra args go to pytest) |
 | Lint / fix and format | `just lint` / `just format` |
 | Type check | `just type-check` (pyrefly) |
 | Docs (warnings are errors) | `just build-docs` |
+| Live docs preview | `just docs-serve` (port 8000) |
 | All pre-commit hooks | `just pre-commit` |
 | Build and check dists | `just dist` |
+| Draft changelog entries | `just changelog` |
 
 After editing dependencies in `pyproject.toml`, run `uv lock` and commit
 `uv.lock` in the same commit.
@@ -71,7 +73,10 @@ After editing dependencies in `pyproject.toml`, run `uv lock` and commit
 
 - `network`: needs live network access; `slow`: expensive. Both are skipped by
   `just test` and in CI; run them with `uv run pytest -m network` or `-m slow`.
-- Markers are strict: register new ones in `[tool.pytest]` in `pyproject.toml`.
+- Markers are strict, and warnings are errors: register new markers, and ignore a
+  specific third-party warning, in `[tool.pytest]` in `pyproject.toml`.
+- `just test` runs in parallel (pytest-xdist); tests must not depend on order or
+  shared state. Debug with a serial `uv run pytest tests/test_x.py -x`.
 - Tests must not depend on machine-specific paths or data.
 
 ## Commits, changelog, releases
@@ -79,7 +84,11 @@ After editing dependencies in `pyproject.toml`, run `uv lock` and commit
 - Commit messages follow Conventional Commits (`fix(io): ...`, `docs: ...`), with
   `!` for breaking changes (`feat!: ...`).
 - User-visible changes go under `## [Unreleased]` in `CHANGELOG.md`, which follows
-  [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+  [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). `just changelog`
+  drafts entries from commit messages (`cliff.toml`); the entries are edited by hand.
+- Docs are versioned on GitHub Pages (`dev/`, one folder per release, `stable/`);
+  `.github/scripts/docs_versions.py` maintains the gh-pages branch. Never edit
+  gh-pages by hand.
 - The version comes from git tags (setuptools-scm); there is no version string in
   the source. Pushing a `vX.Y.Z` tag publishes it. **Do not cut a release, create
   a tag, or push unless the maintainer asks.**
