@@ -1,0 +1,12 @@
+version: 2
+updates:
+  # Keep GitHub Actions current; one grouped PR a month.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7  # skip releases younger than a week (supply-chain safety)
+    groups:
+      actions:
+        patterns: ["*"]

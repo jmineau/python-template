@@ -1,212 +1,79 @@
-# cookiecutter-python
+# python-template
 
-A [Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for creating modern Python packages with best practices built-in.
+A [copier](https://copier.readthedocs.io) template for Python packages, built
+from the conventions of [lair](https://github.com/jmineau/lair),
+[fips](https://github.com/jmineau/fips), [PYSTILT](https://github.com/jmineau/PYSTILT),
+[arl-met](https://github.com/jmineau/arl-met) and friends. Unlike a one-shot
+generator, copier records which template version a project came from, so
+`copier update` brings later template improvements into existing projects as
+an ordinary, reviewable diff.
 
-## Features
-
-This template provides a complete Python package structure with:
-
-- 📦 **Modern Python packaging** with `pyproject.toml`
-- 🎨 **Code formatting** with ruff (pre-commit hooks included)
-- 📚 **Sphinx documentation** with PyData theme
-- 🧪 **Testing setup** with pytest and coverage
-- ✅ **Pre-commit hooks** for automated code quality checks
-- 🔧 **GitHub Actions workflows** for CI/CD
-- 🤝 **Contributing guidelines** for open source collaboration
-- 📝 **Python .gitignore** from github/gitignore/Python.gitignore
-
-## Requirements
-
-- Python 3.10 or higher
-- [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
-
-## Usage
-
-### Install Cookiecutter
-
-If you haven't already, install cookiecutter:
+## Use it
 
 ```bash
-pip install cookiecutter
+uv tool install copier          # or run it ad hoc: uvx copier ...
+copier copy gh:jmineau/python-template my-package
 ```
 
-### Generate a New Python Package
+Copier asks a few questions and prints the next steps (`uv lock`, `git init`,
+`uv sync`, `uv run pre-commit install`). Later, from inside the project:
 
 ```bash
-cookiecutter https://github.com/jmineau/cookiecutter-python
+copier update                   # pull in template changes since your last copy/update
 ```
 
-or if you have it cloned locally:
+Copier merges the template's changes with yours; review the diff (conflicts get
+git-style markers) and commit it like any other change.
 
-```bash
-cookiecutter cookiecutter-python/
-```
+### Questions
 
-Cookiecutter reads the configuration from `cookiecutter.json` and will prompt you to customize values for your new project. You can accept the defaults by pressing Enter, or provide your own values:
+| Question | Default | Notes |
+|---|---|---|
+| `full_name`, `email`, `github_username` | James Mineau | Author and repository owner |
+| `orcid`, `affiliation` | James's | For CITATION.cff and Zenodo; may be blank |
+| `project_name` | — | Human-readable, e.g. "My Package" |
+| `repository_name` | from `project_name` | `my-package` |
+| `distribution_name` | from `repository_name` | The `pip install` / PyPI name |
+| `package_name` | from `distribution_name` | The import name (`mypackage`) |
+| `project_short_description` | — | One line |
+| `python_min` | 3.11 | Oldest supported Python; CI tests it through 3.14 |
+| `publish_to_pypi` | yes | Adds trusted publishing to PyPI on release |
+| `copyright_year` | 2026 | LICENSE |
 
-- `full_name`: Your full name
-- `email`: Your email address
-- `github_username`: Your GitHub username
-- `project_name`: The name of your project (e.g., "My Python Package")
-- `repository_name`: The repository name (auto-generated from project_name with spaces replaced by dashes)
-- `package_name`: The package name (auto-generated from project_name with spaces removed)
-- `project_short_description`: A brief description of your project
-- `year`: Year used for default values (e.g., 2025).
-- `version`: Initial version (default: 2025.1.0, calver format)
+## What you get
 
-### After Generation
+| Area | Tooling |
+|---|---|
+| Environment | [uv](https://docs.astral.sh/uv/) with a committed `uv.lock`; dev tools and docs in one PEP 735 `dev` group |
+| Tasks | [just](https://just.systems/): `just quality-check`, `just test`, `just build-docs`, `just release X.Y.Z`, ... CI runs the same recipes |
+| Packaging | setuptools, `src/` layout, PEP 639 license, `py.typed` |
+| Versions | [setuptools-scm](https://setuptools-scm.readthedocs.io): the version is the git tag; `.devN` versions between releases |
+| Lint and format | [ruff](https://docs.astral.sh/ruff/) (`E F UP B SIM I D213 NPY RUF100`) |
+| Types | [pyrefly](https://pyrefly.org) |
+| Tests | pytest 9 (strict, warnings are errors, `network`/`slow` markers), pytest-cov, Codecov |
+| Docstrings | NumPy style, [docstr-coverage](https://github.com/HunterMcGushion/docstr_coverage) ≥ 95% |
+| Docs | Sphinx + PyData theme, autosummary API pages, built with warnings as errors, deployed to GitHub Pages from `main` |
+| pre-commit | pre-commit-hooks, rST checks, validate-pyproject, `uv-lock`, ruff, [zizmor](https://docs.zizmor.sh), pyrefly |
+| CI | Tests (Linux/macOS/Windows × all supported Pythons), Code Quality, Documentation, Publish (tag push → PyPI trusted publishing with attestations → GitHub Release from CHANGELOG → Zenodo) |
+| Upkeep | Dependabot for actions (monthly, grouped, 7-day cooldown) |
+| Project files | AGENTS.md, CONTRIBUTING.md, CHANGELOG.md (Keep a Changelog), CITATION.cff, `.zenodo.json`, issue forms, PR template |
 
-Once your project is generated, follow these steps:
+Generated projects score clean on the Scientific Python
+[repo-review](https://learn.scientific-python.org/development/guides/repo-review/)
+(deliberate exceptions are listed in `[tool.repo-review]`), and their workflows
+pass [actionlint](https://github.com/rhysd/actionlint) and zizmor.
 
-1. Navigate to your new project directory:
-   ```bash
-   cd your-repository-name
-   ```
-
-2. Initialize a git repository:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit from cookiecutter-python"
-   ```
-
-3. Create an environment and install dependencies:
-   ```bash
-   # Using venv:
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-   # OR with conda:
-   conda create -n myenv python=3.10 -y
-   conda activate myenv
-
-   # Install development dependencies:
-   python -m pip install --upgrade pip
-   pip install -e ".[dev,docs]"
-   pre-commit install
-   ```
-
-4. Create a repository on GitHub and push your code:
-   ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/your-repository-name.git
-   git branch -M main
-   git push -u origin main
-   ```
-
-5. Enable GitHub Actions workflows in your repository settings.
-   > Go to Settings > Actions > General > Action Permissions
-
-6. Enable GitHub Pages from GitHub Actions in your repository settings.
-   > - Go to Settings > Pages > Source > GitHub Actions
-   > - View your documentation at https://YOUR_USERNAME.github.io/your-repository-name
-
-7. Add your Codecov repository token to GitHub Secrets for coverage reporting.
-   > - Follow steps 1-2 in https://docs.codecov.com/docs/quick-start to get your token.
-   > - Go to Settings > Secrets and variables > Actions > New repository secret
-   > - Name: `CODECOV_TOKEN`; Value: `your token from Codecov`
-   > - View your code coverage report at https://app.codecov.io/gh/YOUR_USERNAME/your-repository-name
-
-8. Start developing! 🚀
-
-## What You Get
-
-After running cookiecutter, you'll have a complete project structure:
+## Layout
 
 ```
-your-repository-name/
-├── .github/
-│   └── workflows/          # GitHub Actions CI/CD workflows
-│       ├── docs.yml        # Build and deploy documentation
-│       ├── quality.yml     # Code quality checks
-│       └── tests.yml       # Run tests on multiple Python versions
-├── docs/                   # Sphinx documentation
-│   ├── api.rst
-│   ├── conf.py             # Sphinx configuration
-│   ├── index.rst
-│   ├── installation.rst
-│   └── usage.rst
-├── src/
-│   └── yourpackagename/    # Your package source code
-│       ├── __init__.py
-│       └── py.typed        # PEP 561 type checking marker
-├── tests/                  # Test files
-│   ├── __init__.py
-│   └── test_pkg.py         # Test for pkg metadata
-├── .gitignore              # Python .gitignore
-├── .pre-commit-config.yaml # Pre-commit hooks configuration
-├── CONTRIBUTING.md         # Contributing guidelines
-├── justfile                # Development tasks (build-docs, clean, test, etc.)
-├── LICENSE                 # MIT License
-├── pyproject.toml          # Modern Python project configuration
-└── README.md               # Project README
+copier.yml          questions, computed values (python_max, uv_version) and the after-copy message
+template/           the project; files ending in .jinja are rendered, everything else is copied as is
+justfile            `just bake`, `just test` for working on the template
+.github/workflows/  template.yml bakes the template and runs every check in the result
 ```
 
-## Included Tools and Configurations
-
-### Code Quality
-
-- **Ruff**: Fast all-in-one linter and formatter (replaces Black, isort, and flake8)
-- **Pyright**: Fast static type checker
-- **pre-commit**: Automated pre-commit hooks
-
-### Testing & Coverage
-
-- **pytest**: Modern testing framework
-- **pytest-cov**: Code coverage reporting with XML output for Codecov
-- **Coverage.py**: Detailed coverage configuration with exclusions
-- **docstr-coverage**: Documentation coverage checking
-
-### Documentation
-
-- **Sphinx**: Documentation generator
-- **PyData Sphinx Theme**: Beautiful, responsive documentation theme
-- **sphinx-autodoc-typehints**: Type hints in documentation
-- **Napoleon**: NumPy-style docstrings support
-
-### Package Management
-
-- **pip**: Traditional Python package installer (via pyproject.toml)
-
-### CI/CD
-
-- **Tests workflow**: Runs tests on Ubuntu, macOS, Windows with Python 3.10-3.12, uploads coverage to Codecov
-- **Docs workflow**: Builds and deploys documentation to GitHub Pages
-- **Lint workflow**: Runs code quality checks with ruff, type checking with pyright, and docstring coverage
-
-### Type Checking Support
-
-- **py.typed**: PEP 561 marker file for type checking support
-- **Pyright configuration**: Basic type checking mode in pyproject.toml
-
-### Badges
-
-Generated projects include comprehensive badges for:
-- **Build status**: Tests, documentation build, and code quality
-- **Code coverage**: Codecov integration
-- **PyPI**: Package version and Python version support
-- **License**: MIT license badge
-- **Ruff**: Ruff formatter badge
-
-## Customization
-
-After generating your project, you can customize it further:
-
-- Add dependencies in `pyproject.toml`
-- Modify pre-commit hooks in `.pre-commit-config.yaml`
-- Update documentation theme options in `docs/conf.py`
-- Add more GitHub Actions workflows as needed
-
-## Contributing
-
-Contributions to improve this template are welcome! Please feel free to:
-
-- Open an issue to report bugs or suggest improvements
-- Submit a pull request with enhancements
+See [CONTRIBUTING.md](CONTRIBUTING.md) to change the template.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-This template is designed to follow modern Python packaging best practices and includes many tools recommended by the Python community.
+MIT; see [LICENSE](LICENSE).

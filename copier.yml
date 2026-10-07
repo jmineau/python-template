@@ -1,0 +1,131 @@
+# Copier template for a Python package: uv, setuptools-scm, ruff, pyrefly,
+# pytest, Sphinx, GitHub Actions. See README.md.
+
+_min_copier_version: "9.4.0"
+_subdirectory: template
+
+_message_after_copy: |
+  Created {{ project_name }} in {{ _copier_conf.dst_path }}.
+
+  Next steps:
+
+    cd {{ _copier_conf.dst_path }}
+    uv lock                          # resolve the dev tools into uv.lock
+    git init && git checkout -b main && git add -A && git commit -m "chore: start from python-template"
+    uv sync                          # .venv with the package and the dev tools
+    uv run pre-commit install
+    uv run just quality-check
+
+  The version comes from git tags (setuptools-scm). Tag the first release as
+  v0.1.0 once there is something to release; until then the version is 0.1.devN.
+
+  GitHub setup: Settings > Pages > Source: GitHub Actions; add a CODECOV_TOKEN
+  secret{% if publish_to_pypi %}; add a trusted publisher on PyPI for workflow
+  publish.yml, environment "pypi"{% endif %}.
+
+  Pull later template changes with: copier update
+
+# --- Author -----------------------------------------------------------------
+
+full_name:
+  type: str
+  help: Your full name
+  default: James Mineau
+
+email:
+  type: str
+  help: Your email address
+  default: jameskmineau@gmail.com
+
+github_username:
+  type: str
+  help: GitHub user or organization that will own the repository
+  default: jmineau
+
+orcid:
+  type: str
+  help: ORCID iD (0000-0000-0000-0000), or leave blank
+  default: "0000-0002-2289-2252"
+  validator: >-
+    {% if orcid and not (orcid | regex_search('^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$')) %}
+    An ORCID iD looks like 0000-0002-2289-2252
+    {% endif %}
+
+affiliation:
+  type: str
+  help: Affiliation for CITATION.cff and Zenodo, or leave blank
+  default: University of Utah
+
+# --- Project ----------------------------------------------------------------
+
+project_name:
+  type: str
+  help: Human-readable project name (e.g. "My Package")
+  validator: "{% if not project_name.strip() %}Required{% endif %}"
+
+repository_name:
+  type: str
+  help: GitHub repository name
+  default: "{{ project_name.strip().lower().replace(' ', '-') }}"
+
+distribution_name:
+  type: str
+  help: Name on PyPI / in `pip install` (may differ from the import name)
+  default: "{{ repository_name.lower() }}"
+  validator: >-
+    {% if not (distribution_name | regex_search('^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$')) %}
+    Use lowercase letters, digits, '.', '_' and '-'
+    {% endif %}
+
+package_name:
+  type: str
+  help: Import name (e.g. `import mypackage`)
+  default: "{{ distribution_name.replace('-', '').replace('.', '_') }}"
+  validator: >-
+    {% if not (package_name | regex_search('^[a-z_][a-z0-9_]*$')) %}
+    Must be a valid lowercase Python identifier
+    {% endif %}
+
+project_short_description:
+  type: str
+  help: One-line description
+  default: A short description of the project.
+
+python_min:
+  type: str
+  help: Oldest supported Python
+  choices: ["3.11", "3.12", "3.13"]
+  default: "3.11"
+
+publish_to_pypi:
+  type: bool
+  help: Publish releases to PyPI (trusted publishing)?
+  default: true
+
+copyright_year:
+  type: str
+  help: Year for the LICENSE copyright line
+  default: "2026"
+
+# --- Computed (not asked, not stored in .copier-answers.yml) ------------------
+# Bump these here and `copier update` carries them into every project.
+
+python_max:
+  type: str
+  default: "3.14"
+  when: false
+
+python_min_minor:
+  type: int
+  default: "{{ python_min.split('.')[1] | int }}"
+  when: false
+
+python_max_minor:
+  type: int
+  default: "{{ python_max.split('.')[1] | int }}"
+  when: false
+
+uv_version:
+  type: str
+  default: "0.10.4"
+  when: false

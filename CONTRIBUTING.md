@@ -1,70 +1,50 @@
-# Contributing to cookiecutter-python
+# Contributing to python-template
 
-Thank you for considering contributing to this cookiecutter template!
+## Working on the template
 
-## Reporting Issues
+- `template/` is the generated project. Files ending in `.jinja` are rendered
+  with the answers from `copier.yml` (the suffix is dropped); all other files
+  are copied verbatim, so GitHub Actions `${{ }}` expressions and Sphinx's
+  autosummary templates need no escaping there. Inside a `.jinja` file, wrap
+  GitHub expressions in `{% raw %}...{% endraw %}`.
+- Values every project shares but nobody should be asked for (`python_max`,
+  `uv_version`) are computed questions (`when: false`) in `copier.yml`. Bump
+  them there; `copier update` carries the change into each project.
+- In `justfile.jinja`, recipes take arguments as `"$@"` (`set positional-arguments`)
+  so just's `{{ }}` never collides with Jinja's.
 
-If you find any issues with the template or have suggestions for improvements, please:
+## Testing a change
 
-1. Check if a similar issue already exists
-2. Open a new issue describing the problem or suggestion
-3. Include examples of what's not working or how it could be improved
+You need uv and just.
 
-## Proposing Changes
+```bash
+just bake            # render the working tree into $TMPDIR/python-template-bake
+just test            # bake both publish_to_pypi variants and, in each, run
+                     # quality-check, build-docs, every pre-commit hook, dist,
+                     # and the tag/dev version checks
+```
 
-To propose changes to the template:
+`just test` is what the Template workflow runs on every pull request.
+pre-commit needs git 2.31 or newer.
 
-1. Fork the repository
-2. Make your changes to the template files in `{{cookiecutter.repository_name}}/`
-3. Test your changes by generating a new project:
-   ```bash
-   cookiecutter path/to/your/fork --no-input
-   ```
-4. Verify the generated project works as expected
-5. Submit a pull request with a clear description of your changes
+Before tagging a template release, also run on a baked project:
 
-## Testing Changes
+```bash
+uvx --from "sp-repo-review[cli]" sp-repo-review .   # Scientific Python checks
+uvx zizmor --offline .github                        # workflow security
+```
 
-Before submitting a pull request, please:
+## Releasing the template
 
-1. Generate a test project:
-   ```bash
-   cookiecutter . --no-input --output-dir /tmp/test_output
-   ```
-
-2. Verify the generated project can be installed:
-   ```bash
-   cd /tmp/test_output/my-python-package
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   python -m pip install --upgrade pip
-   pip install -e ".[dev,docs]"
-   pre-commit install
-   ```
-
-3. Run the checks:
-   ```bash
-   just quality-check
-   ```
-
-4. Verify pre-commit hooks work:
-   ```bash
-   just pre-commit
-   ```
-
-5. Clean up:
-   ```bash
-   rm -rf /tmp/test_output
-   ```
+Projects record the template version in `.copier-answers.yml` (`_commit`), and
+`copier update` moves them to the newest tag. Tag releases `vX.Y.Z`: a new
+major version for changes that need manual follow-up in projects, a minor one
+for new tooling, a patch for fixes. Note what changed, and anything a project
+must do by hand, in the release notes.
 
 ## Guidelines
 
-- Keep the template minimal and focused on best practices
-- Maintain compatibility with Python 3.10+
-- Document any significant changes in the template
-- Ensure all generated files use proper Jinja2 templating where needed
-- Test changes thoroughly before submitting
-
-## Questions?
-
-If you have questions about contributing, feel free to open an issue for discussion.
+- Encode what the packages actually do; a convention earns its place here once
+  it has proved itself in a real package.
+- Keep generated projects passing `just test`, repo-review, actionlint and zizmor.
+- Commit messages follow Conventional Commits.

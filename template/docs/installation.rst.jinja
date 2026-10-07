@@ -1,0 +1,33 @@
+Installation
+============
+
+{{ project_name }} requires Python {{ python_min }} or newer.
+{% if publish_to_pypi %}
+From PyPI
+---------
+
+.. code-block:: bash
+
+   pip install {{ distribution_name }}
+{% endif %}
+From GitHub
+-----------
+
+.. code-block:: bash
+
+   pip install git+https://github.com/{{ github_username }}/{{ repository_name }}
+
+For development
+---------------
+
+Development uses `uv <https://docs.astral.sh/uv/>`_ and `just <https://just.systems/>`_:
+
+.. code-block:: bash
+
+   git clone https://github.com/{{ github_username }}/{{ repository_name }}.git
+   cd {{ repository_name }}
+   uv sync                    # creates .venv with the package and the dev tools
+   uv run pre-commit install
+   just quality-check
+
+See `CONTRIBUTING.md <https://github.com/{{ github_username }}/{{ repository_name }}/blob/main/CONTRIBUTING.md>`_ for the full workflow.

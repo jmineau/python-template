@@ -1,0 +1,59 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: {% raw %}${{ github.workflow }}-${{ github.ref }}{% endraw %}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: {% raw %}${{ matrix.os }} / Python ${{ matrix.python-version }}{% endraw %}
+    runs-on: {% raw %}${{ matrix.os }}{% endraw %}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: [{% for minor in range(python_min_minor, python_max_minor + 1) %}"3.{{ minor }}"{% if not loop.last %}, {% endif %}{% endfor %}]
+    env:
+      UV_NO_SYNC: "1"  # `just` recipes run in the environment synced below
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0  # setuptools-scm reads the version from tags
+
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: "{{ uv_version }}"
+          python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
+
+      - name: Install
+        run: uv sync --locked
+
+      - name: Test
+        run: uv run just cov
+
+      - name: Upload coverage to Codecov
+        if: {% raw %}${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '{% endraw %}{{ python_min }}{% raw %}' && !cancelled() }}{% endraw %}
+        uses: codecov/codecov-action@v7
+        with:
+          token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
+          files: coverage.xml
+
+      - name: Upload test results to Codecov
+        if: {% raw %}${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '{% endraw %}{{ python_min }}{% raw %}' && !cancelled() }}{% endraw %}
+        uses: codecov/codecov-action@v7
+        with:
+          token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
+          files: junit.xml
+          report_type: test_results
