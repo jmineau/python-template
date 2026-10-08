@@ -66,6 +66,10 @@ After editing dependencies in `pyproject.toml`, run `uv lock` and commit
   ```
 
 - Public functions, classes and modules have docstrings (`just docstr` enforces 95%).
+- Each public attribute and property has its own page in the API reference, and that
+  page is where its See Also and Examples go (as in pandas). Say what it is in its
+  docstring, and add See Also or Examples where they help; one with no docstring
+  shows an empty row.
 - pyrefly must pass with no errors; suppress with `# pyrefly: ignore[<code>]` on the
   line above, with a reason.
 - The library never configures logging; modules use `logging.getLogger(__name__)`.
