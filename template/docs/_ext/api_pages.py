@@ -259,6 +259,10 @@ def add_template_context(app, config) -> None:
 
 def setup(app):
     """Register the hooks, ahead of napoleon's (priority 500)."""
+    # The hooks need autodoc's event and autosummary's config value, so load
+    # both here: the extension then works wherever conf.py lists it.
+    app.setup_extension("sphinx.ext.autodoc")
+    app.setup_extension("sphinx.ext.autosummary")
     app.connect("config-inited", add_template_context)
     app.connect("autodoc-process-docstring", drop_member_sections, priority=400)
     return {"parallel_read_safe": True, "parallel_write_safe": True}
