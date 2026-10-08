@@ -20,9 +20,9 @@ _message_after_copy: |
   v0.1.0 once there is something to release; until then the version is 0.0.1.devN.
 
   GitHub setup (once):
-    - Settings > Pages > Source: GitHub Actions. Then Settings > Environments >
-      github-pages > Deployment branches and tags: add the tag rule v*, so
-      release tags can publish their docs.
+    - Settings > Pages > Source: Deploy from a branch, branch gh-pages, folder
+      / (root). The Documentation workflow creates the branch on its first run
+      on main, so this comes after that run.
     - Settings > Secrets and variables > Actions: add CODECOV_TOKEN.{% if publish_to_pypi %}
     - On PyPI, add a trusted publisher: workflow publish.yml, environment pypi.
       Optionally, Settings > Environments > pypi > Required reviewers: you, so

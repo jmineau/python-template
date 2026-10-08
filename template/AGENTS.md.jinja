@@ -93,9 +93,9 @@ After editing dependencies in `pyproject.toml`, run `uv lock` and commit
 - User-visible changes go under `## [Unreleased]` in `CHANGELOG.md`, which follows
   [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). `just changelog`
   drafts entries from commit messages (`cliff.toml`); the entries are edited by hand.
-- Docs are versioned on GitHub Pages (`dev/`, one folder per release, `stable/`);
-  `.github/scripts/docs_versions.py` maintains the gh-pages branch. Never edit
-  gh-pages by hand.
+- Docs are versioned on GitHub Pages, which serves the gh-pages branch (`dev/`,
+  one folder per release, `stable/`); `.github/scripts/docs_versions.py`
+  maintains the branch. Never edit gh-pages by hand.
 - The version comes from git tags (setuptools-scm); there is no version string in
   the source. Pushing a `vX.Y.Z` tag publishes it. **Do not cut a release, create
   a tag, or push unless the maintainer asks.**

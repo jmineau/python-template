@@ -65,9 +65,7 @@ first time is by hand; `copier update` takes over from then on.
 4. Expect warnings-as-errors to find things. Fix the package's own warnings;
    a test that triggers one on purpose asserts it with `pytest.warns`; a
    third-party one is ignored by message and module in `[tool.pytest]`.
-5. On GitHub: Settings > Pages > Source: GitHub Actions, and Settings >
-   Environments > github-pages: add the tag rule `v*`.
-6. Seed the docs site with the latest release, or the site opens at `dev/`
+5. Seed the docs site with the latest release, or the site opens at `dev/`
    until the next tag. Build the release's docs from its tag, add them to the
    `gh-pages` branch with the template's script, and push it:
 
@@ -81,8 +79,17 @@ first time is by hand; `copier update` takes over from then on.
    git -C site add --all && git -C site commit -m "docs: publish X.Y.Z" && git -C site push origin gh-pages
    ```
 
-   Done before the adoption merges, its first deploy publishes it; done after,
-   run the Documentation workflow by hand once.
+   Without a seed, the Documentation workflow creates the branch on its first
+   run on main.
+6. On GitHub, once the `gh-pages` branch exists: Settings > Pages > Source:
+   Deploy from a branch, branch `gh-pages`, folder `/ (root)`; or
+
+   ```bash
+   echo '{"build_type": "legacy", "source": {"branch": "gh-pages", "path": "/"}}' |
+       gh api -X PUT repos/OWNER/mypkg/pages --input -
+   ```
+
+   GitHub Pages then rebuilds the site after every push to the branch.
 
 ## What you get
 
