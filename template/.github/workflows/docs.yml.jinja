@@ -3,7 +3,9 @@ name: Documentation
 # Pull requests build the docs (warnings fail the build). Pushes to main publish
 # them as dev/, release tags as <version>/ (final releases also as stable/), on
 # GitHub Pages, with a version dropdown. The gh-pages branch stores the
-# published versions; .github/scripts/docs_versions.py maintains it.
+# published versions; .github/scripts/docs_versions.py maintains it. A tag run
+# adds its version to gh-pages and leaves the deploy to a run on main (see the
+# last step).
 on:
   push:
     branches: [main]
@@ -67,6 +69,7 @@ jobs:
       contents: write  # push the gh-pages branch
       pages: write
       id-token: write
+      actions: write  # a tag run starts the deploy as a run on main (below)
     environment:
       name: github-pages
       url: {% raw %}${{ steps.deployment.outputs.page_url }}{% endraw %}
@@ -120,9 +123,24 @@ jobs:
           git push --quiet origin gh-pages
 
       - uses: actions/upload-pages-artifact@v5
+        if: github.ref_type != 'tag'
         with:
           path: site
 
       - name: Deploy to GitHub Pages
+        if: github.ref_type != 'tag'
         id: deployment
         uses: actions/deploy-pages@v5
+
+      # GitHub Pages drops a deployment from a tag push when main has already
+      # deployed the tagged commit, which is how `just release` tags: the run
+      # reports success and the site keeps the old build
+      # (https://github.com/actions/deploy-pages/issues/383). A run started by
+      # workflow_dispatch deploys correctly, so a tag run hands the deploy to a
+      # run of this workflow on main, which publishes the whole gh-pages branch.
+      - name: Deploy through a run on main
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: {% raw %}${{ github.token }}{% endraw %}
+          DEFAULT_BRANCH: {% raw %}${{ github.event.repository.default_branch }}{% endraw %}
+        run: gh workflow run docs.yml --repo "$GITHUB_REPOSITORY" --ref "$DEFAULT_BRANCH"
