@@ -38,7 +38,9 @@ dev = [
     "git-cliff>=2.10",  # `just changelog`
     "ipython>=9.0",  # `.. ipython::` in the docs
     "matplotlib>=3.8",  # `.. plot::` in the docs
-    "myst-nb>=1.2",  # notebooks in the docs, run at build time
+{%- if docs_notebooks %}
+    "myst-nb>=1.2",  # notebooks and Markdown code cells in the docs
+{%- endif %}
     "pre-commit>=4.0",
     "pydata-sphinx-theme>=0.16",
     "pyrefly>=1.3",

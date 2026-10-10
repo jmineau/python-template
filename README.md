@@ -38,6 +38,7 @@ git-style markers) and commit it like any other change.
 | `project_short_description` | — | One line |
 | `python_min` | 3.11 | Oldest supported Python; CI tests it through 3.14 |
 | `publish_to_pypi` | yes | Adds trusted publishing to PyPI on release |
+| `docs_notebooks` | no | Runs notebooks, and code cells in Markdown pages, when the docs build ([myst-nb](https://myst-nb.readthedocs.io)); adds Jupyter to the dev tools |
 | `test_os` | Linux, macOS, Windows | Where the tests run; Linux is required (coverage uploads from it) |
 | `copyright_year` | 2026 | LICENSE |
 
@@ -103,7 +104,7 @@ first time is by hand; `copier update` takes over from then on.
 | Types | [pyrefly](https://pyrefly.org) |
 | Tests | pytest 9 (strict, warnings are errors, `network`/`slow` markers), parallel with pytest-xdist, pytest-cov, Codecov |
 | Docstrings | NumPy style, [docstr-coverage](https://github.com/HunterMcGushion/docstr_coverage) ≥ 95% |
-| Docs | Sphinx + PyData theme, pandas-style API pages (a page per class, with tables of its attributes and methods, and a page per member), copy buttons, examples that run when the docs build (matplotlib's `.. plot::` in docstrings; IPython's `.. ipython::` in `.rst` pages; code cells in Markdown pages and notebooks, through [myst-nb](https://myst-nb.readthedocs.io)), live preview (`just docs-serve`), built with warnings as errors; versioned on GitHub Pages (`dev/`, one folder per release, `stable/`) with a version dropdown |
+| Docs | Sphinx + PyData theme, pandas-style API pages (a page per class, with tables of its attributes and methods, and a page per member), copy buttons, examples that run when the docs build (matplotlib's `.. plot::` in docstrings, IPython's `.. ipython::` in `.rst` pages, and with `docs_notebooks`, notebooks and code cells in Markdown pages), live preview (`just docs-serve`), built with warnings as errors; versioned on GitHub Pages (`dev/`, one folder per release, `stable/`) with a version dropdown |
 | pre-commit | pre-commit-hooks, rST checks, validate-pyproject, [zizmor](https://docs.zizmor.sh); `uv lock`, ruff and pyrefly run from `.venv`, so `uv.lock` pins their versions |
 | Changelog | Keep a Changelog, hand-edited; `just changelog` drafts entries from Conventional Commits ([git-cliff](https://git-cliff.org)) |
 | CI | Tests (the chosen operating systems × all supported Pythons), Code Quality, Documentation, Publish (tag push → PyPI trusted publishing with attestations → GitHub Release from CHANGELOG → Zenodo) |
