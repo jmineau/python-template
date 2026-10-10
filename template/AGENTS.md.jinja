@@ -93,7 +93,27 @@ when one breaks.
      >>> _ = plt.plot([0, 1, 2], [0, 1, 4])
   ```
 
-- **Code cells in a page:** a Markdown page (`.md`) under `docs/` can mix prose
+- **Code in an `.rst` page:** a `.. ipython:: python` block runs, and shows each
+  line with its output, as in an IPython session. Changing a
+  `.. code-block:: python` to `.. ipython:: python` is enough to make it run. For
+  a figure, put `@savefig name.png` on the line above the plotting call.
+
+  ```rst
+  .. ipython:: python
+
+     import matplotlib.pyplot as plt
+     import {{ package_name }}
+
+     {{ package_name }}.__version__
+
+     @savefig squares.png width=5in
+     plt.plot([0, 1, 2], [0, 1, 4]);
+  ```
+
+  A block that raises or warns fails the build; `:okexcept:` or `:okwarning:`
+  under the directive allows one that is meant to. All `.rst` pages share one
+  session, so each page imports and defines what it uses.
+- **Code cells in a Markdown page:** a page (`.md`) under `docs/` can mix prose
   with code cells that run, each showing what it prints and plots, as in a
   notebook. The header makes the cells run:
 
@@ -115,14 +135,14 @@ when one breaks.
   ```
   ````
 
-  Code cells work only in Markdown pages. In an `.rst` page, `.. plot::` shows
-  code and its figure, but not what it prints.
 - **A notebook:** an `.ipynb` under `docs/`, listed in a toctree like any page.
   Commit it without outputs: the build runs every cell.
-- **When they run:** `just build-docs` runs every page and notebook, as CI does;
-  `just docs-serve` reruns one only when its code changes. A cell times out after
-  30 s; for a slower one, set `mystnb: {execution_timeout: 120}` in the page's
-  header, or `"mystnb": {"execution_timeout": 120}` in the notebook's metadata.
+- **When they run:** `just build-docs` runs everything, as CI does.
+  `just docs-serve` reruns a Markdown page or notebook only when its code
+  changes, and an `.rst` page's blocks whenever that page is rebuilt. A cell
+  times out after 30 s; for a slower one, set `mystnb: {execution_timeout: 120}`
+  in the page's header, or `"mystnb": {"execution_timeout": 120}` in the
+  notebook's metadata.
 - **Data:** the docs build on GitHub Actions, so an example uses synthetic data,
   a small file in the repository, or a public download, never a machine-specific
   path. Seed random numbers so the figures don't change from build to build.
