@@ -47,7 +47,7 @@ build-docs:
 
 # Serve the docs at http://127.0.0.1:PORT, rebuilding on every save (Ctrl-C stops)
 docs-serve port="8000":
-    uv run sphinx-autobuild docs docs/_build/html --port "$1" --watch src --re-ignore '_autosummary/'
+    uv run sphinx-autobuild docs docs/_build/html --port "$1" --watch src --re-ignore '_autosummary/' --re-ignore '_build/' --re-ignore '__pycache__/'
 
 # Everything the Code Quality workflow checks, plus the tests
 quality-check: lint type-check docstr test
