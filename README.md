@@ -103,7 +103,7 @@ first time is by hand; `copier update` takes over from then on.
 | Types | [pyrefly](https://pyrefly.org) |
 | Tests | pytest 9 (strict, warnings are errors, `network`/`slow` markers), parallel with pytest-xdist, pytest-cov, Codecov |
 | Docstrings | NumPy style, [docstr-coverage](https://github.com/HunterMcGushion/docstr_coverage) ≥ 95% |
-| Docs | Sphinx + PyData theme, pandas-style API pages (a page per class, with tables of its attributes and methods, and a page per member), copy buttons, live preview (`just docs-serve`), built with warnings as errors; versioned on GitHub Pages (`dev/`, one folder per release, `stable/`) with a version dropdown |
+| Docs | Sphinx + PyData theme, pandas-style API pages (a page per class, with tables of its attributes and methods, and a page per member), copy buttons, examples that run when the docs build (matplotlib's `.. plot::` in docstrings; code cells in Markdown pages and notebooks, through [myst-nb](https://myst-nb.readthedocs.io)), live preview (`just docs-serve`), built with warnings as errors; versioned on GitHub Pages (`dev/`, one folder per release, `stable/`) with a version dropdown |
 | pre-commit | pre-commit-hooks, rST checks, validate-pyproject, [zizmor](https://docs.zizmor.sh); `uv lock`, ruff and pyrefly run from `.venv`, so `uv.lock` pins their versions |
 | Changelog | Keep a Changelog, hand-edited; `just changelog` drafts entries from Conventional Commits ([git-cliff](https://git-cliff.org)) |
 | CI | Tests (the chosen operating systems × all supported Pythons), Code Quality, Documentation, Publish (tag push → PyPI trusted publishing with attestations → GitHub Release from CHANGELOG → Zenodo) |
@@ -121,6 +121,7 @@ pass [actionlint](https://github.com/rhysd/actionlint) and zizmor.
 copier.yml          questions, computed values (python_max, uv_version) and the after-copy message
 template/           the project; files ending in .jinja are rendered, everything else is copied as is
 justfile            `just bake`, `just test` for working on the template
+fixtures/           files `just test` adds to the baked project: a figure in a docstring, a page with a code cell, a notebook
 .github/workflows/  template.yml bakes the template and runs every check in the result
 ```
 

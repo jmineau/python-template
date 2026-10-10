@@ -24,6 +24,11 @@ just test            # bake both publish_to_pypi variants and, in each, run
                      # and the tag/dev version checks
 ```
 
+Before the checks, `just test` copies `fixtures/` into the baked project: a
+function whose docstring draws a figure, a Markdown page with a code cell, and a
+notebook. `build-docs` runs all three, and `just test` checks that their output
+reaches the HTML.
+
 `just test` is what the Template workflow runs on every pull request.
 pre-commit needs git 2.31 or newer.
 

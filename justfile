@@ -28,6 +28,11 @@ test:
             --data project_name="Test Package" --data publish_to_pypi="$pypi" \
             "$template" "$dest"
         cd "$dest"
+        # Examples that run when the docs build: a figure in a docstring, a page with a
+        # code cell, a notebook.
+        cp -r "$template/fixtures/." .
+        sed -i 's/^   usage$/   usage\n   guide\n   notebook/' docs/index.rst
+        grep -qx '   guide' docs/index.rst
         git_ init --quiet && git_ checkout --quiet -b main
         uv lock
         git_ add --all
@@ -39,6 +44,12 @@ test:
         echo "::group::checks publish_to_pypi=$pypi"
         uv run just quality-check
         uv run just build-docs
+        # The examples ran: the page's output, the notebook's output and figure, and
+        # the docstring's figure.
+        grep -qF 'square(4) = 16' docs/_build/html/guide.html
+        grep -qF 'square(3) = 9' docs/_build/html/notebook.html
+        grep -q '<img' docs/_build/html/notebook.html
+        grep -q 'class="plot-directive"' docs/_build/html/_autosummary/testpackage.plotting.square.html
         uv run pre-commit run --all-files
         uv run just dist
         echo "::endgroup::"
