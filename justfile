@@ -28,11 +28,11 @@ test:
             --data project_name="Test Package" --data publish_to_pypi="$pypi" \
             "$template" "$dest"
         cd "$dest"
-        # Examples that run when the docs build: a figure in a docstring, a page with a
-        # code cell, a notebook.
+        # Examples that run when the docs build: a figure in a docstring, an .rst page
+        # with IPython blocks, a Markdown page with a code cell, a notebook.
         cp -r "$template/fixtures/." .
-        sed -i 's/^   usage$/   usage\n   guide\n   notebook/' docs/index.rst
-        grep -qx '   guide' docs/index.rst
+        sed -i 's/^   usage$/   usage\n   session\n   guide\n   notebook/' docs/index.rst
+        grep -qx '   session' docs/index.rst
         git_ init --quiet && git_ checkout --quiet -b main
         uv lock
         git_ add --all
@@ -44,8 +44,9 @@ test:
         echo "::group::checks publish_to_pypi=$pypi"
         uv run just quality-check
         uv run just build-docs
-        # The examples ran: the page's output, the notebook's output and figure, and
-        # the docstring's figure.
+        # The examples ran: each page's output and figures are in its HTML.
+        sed 's/<[^>]*>//g' docs/_build/html/session.html | grep -qF 'square(5) = 25'
+        grep -q 'session_squares.png' docs/_build/html/session.html
         grep -qF 'square(4) = 16' docs/_build/html/guide.html
         grep -qF 'square(3) = 9' docs/_build/html/notebook.html
         grep -q '<img' docs/_build/html/notebook.html
