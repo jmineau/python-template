@@ -28,13 +28,15 @@ extensions = [
     "matplotlib.sphinxext.plot_directive",  # `.. plot::` runs code, shows the figure
     "IPython.sphinxext.ipython_directive",  # `.. ipython::` runs code in an .rst page
     "IPython.sphinxext.ipython_console_highlighting",  # colors its In/Out prompts
+{%- if docs_notebooks %}
     "myst_nb",  # notebooks (.ipynb, or Markdown with code cells), run at build time
+{%- endif %}
     "sphinx_autodoc_typehints",
     "sphinx_copybutton",
     "api_pages",  # _ext/api_pages.py: class pages with member tables
 ]
 templates_path = ["_templates"]
-exclude_patterns = ["_build", "**.ipynb_checkpoints"]
+exclude_patterns = ["_build"{% if docs_notebooks %}, "**.ipynb_checkpoints"{% endif %}]
 
 # -- HTML ----------------------------------------------------------------------
 
@@ -83,6 +85,7 @@ plot_formats = [("png", 100)]
 # its output; a block that raises or warns fails the build. Its figures (a line
 # `@savefig name.png` above the plotting call) are saved under docs/_build.
 ipython_savefig_dir = "_build/savefig"
+{%- if docs_notebooks %}
 
 # Code cells run too, in notebooks and in Markdown pages whose header names a
 # kernel, and show every output; a cell that raises fails the build. Outputs are
@@ -92,6 +95,7 @@ ipython_savefig_dir = "_build/savefig"
 # committed with if its metadata has "mystnb": {"execution_mode": "off"}.
 nb_execution_mode = "cache"
 nb_execution_show_tb = True  # print the traceback of a failing cell in the log
+{%- endif %}
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),

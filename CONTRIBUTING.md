@@ -19,15 +19,16 @@ You need uv and just.
 
 ```bash
 just bake            # render the working tree into $TMPDIR/python-template-bake
-just test            # bake both publish_to_pypi variants and, in each, run
+just test            # bake twice (the yes/no questions answered yes, then no) and, in each, run
                      # quality-check, build-docs, every pre-commit hook, dist,
                      # and the tag/dev version checks
 ```
 
-Before the checks, `just test` copies `fixtures/` into the baked project: a
-function whose docstring draws a figure, an `.rst` page with IPython blocks, a
-Markdown page with a code cell, and a notebook. `build-docs` runs all four, and
-`just test` checks that their output reaches the HTML.
+Before the checks, `just test` copies `fixtures/` into the baked project:
+`always/` (a function whose docstring draws a figure, an `.rst` page with IPython
+blocks) and, in the bake with `docs_notebooks`, `notebooks/` (a Markdown page with
+a code cell, a notebook). `build-docs` runs them, and `just test` checks that
+their output reaches the HTML.
 
 `just test` is what the Template workflow runs on every pull request.
 pre-commit needs git 2.31 or newer.

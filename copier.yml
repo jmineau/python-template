@@ -107,6 +107,11 @@ publish_to_pypi:
   help: Publish releases to PyPI (trusted publishing)?
   default: true
 
+docs_notebooks:
+  type: bool
+  help: "Run notebooks and Markdown code cells in the docs (myst-nb; adds Jupyter to the dev tools)?"
+  default: false
+
 test_os:
   type: str
   help: Operating systems the tests run on

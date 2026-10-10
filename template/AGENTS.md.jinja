@@ -113,6 +113,7 @@ when one breaks.
   A block that raises or warns fails the build; `:okexcept:` or `:okwarning:`
   under the directive allows one that is meant to. All `.rst` pages share one
   session, so each page imports and defines what it uses.
+{%- if docs_notebooks %}
 - **Code cells in a Markdown page:** a page (`.md`) under `docs/` can mix prose
   with code cells that run, each showing what it prints and plots, as in a
   notebook. The header makes the cells run:
@@ -143,16 +144,25 @@ when one breaks.
   times out after 30 s; for a slower one, set `mystnb: {execution_timeout: 120}`
   in the page's header, or `"mystnb": {"execution_timeout": 120}` in the
   notebook's metadata.
+{%- else %}
+- **When they run:** `just build-docs` runs everything, as CI does;
+  `just docs-serve` reruns a page's blocks whenever that page is rebuilt.
+- **Notebooks, and code cells in Markdown pages,** are off in this project.
+  `copier update --data docs_notebooks=true` turns them on; it adds myst-nb, and
+  Jupyter with it, to the dev tools.
+{%- endif %}
 - **Data:** the docs build on GitHub Actions, so an example uses synthetic data,
   a small file in the repository, or a public download, never a machine-specific
   path. Seed random numbers so the figures don't change from build to build.
 - **Optional dependencies:** if an example needs an extra, add
   `{{ distribution_name }}[extra]` to the `dev` group, so `uv sync` installs it
   here and in CI.
+{%- if docs_notebooks %}
 - **A notebook that can't run in CI** (it needs data only one machine has) is
   committed with its outputs and `"mystnb": {"execution_mode": "off"}` in its
   metadata. The page then shows the outputs from its last run, so rerun it when
   the code it uses changes.
+{%- endif %}
 
 ## Tests
 
