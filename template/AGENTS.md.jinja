@@ -112,7 +112,9 @@ when one breaks.
 
   A block that raises or warns fails the build; `:okexcept:` or `:okwarning:`
   under the directive allows one that is meant to. All `.rst` pages share one
-  session, so each page imports and defines what it uses.
+  session, so each page imports and defines what it uses. Split a long block so
+  that no multi-line statement is its 10th (or 100th) statement: the directive
+  runs only the first line of that one.
 {%- if docs_notebooks %}
 - **Code cells in a Markdown page:** a page (`.md`) under `docs/` can mix prose
   with code cells that run, each showing what it prints and plots, as in a
