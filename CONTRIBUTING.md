@@ -28,7 +28,8 @@ Before the checks, `just test` copies `fixtures/` into the baked project:
 `always/` (a function whose docstring draws a figure, an `.rst` page with IPython
 blocks) and, in the bake with `docs_notebooks`, `notebooks/` (a Markdown page with
 a code cell, a notebook). `build-docs` runs them, and `just test` checks that
-their output reaches the HTML.
+their output reaches the HTML. The function's `>>>` lines are also a doctest, and
+`just test` checks that pytest collects it next to the tests folder.
 
 `just test` is what the Template workflow runs on every pull request.
 pre-commit needs git 2.31 or newer.
