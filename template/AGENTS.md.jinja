@@ -176,6 +176,9 @@ when one breaks.
   warning is ignored by message and module in `[tool.pytest]` `filterwarnings`.
 - `just test` runs in parallel (pytest-xdist); tests must not depend on order or
   shared state. Debug with a serial `uv run pytest tests/test_x.py -x`.
+- Docstring examples (`>>>` lines under `src/`) run as tests too (`--doctest-modules`),
+  so an example that stops matching the code fails `just test`. One that needs data
+  CI lacks gets `# doctest: +SKIP` on its `>>>` line.
 - Tests must not depend on machine-specific paths or data.
 
 ## Commits, changelog, releases

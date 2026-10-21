@@ -55,6 +55,10 @@ test:
 
         echo "::group::checks optional=$opt"
         uv run just quality-check
+        # pytest collects the docstring examples under src/ next to the tests folder.
+        collected="$(uv run pytest --collect-only -q)"
+        grep -qF 'src/testpackage/plotting.py::testpackage.plotting.square' <<<"$collected"
+        grep -qF 'tests/test_pkg.py::test_version' <<<"$collected"
         uv run just build-docs
         # The examples ran: each page's output and figures are in its HTML.
         sed 's/<[^>]*>//g' docs/_build/html/session.html | grep -qF 'square(5) = 25'
