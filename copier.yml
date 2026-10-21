@@ -23,7 +23,10 @@ _message_after_copy: |
     - Settings > Pages > Source: Deploy from a branch, branch gh-pages, folder
       / (root). The Documentation workflow creates the branch on its first run
       on main, so this comes after that run.
-    - Settings > Secrets and variables > Actions: add CODECOV_TOKEN.{% if publish_to_pypi %}
+    - Settings > Secrets and variables > Actions: add CODECOV_TOKEN.
+    - Settings > Actions > General > Workflow permissions: tick "Allow GitHub
+      Actions to create and approve pull requests", so the monthly Upgrade lock
+      workflow can open its pull request.{% if publish_to_pypi %}
     - On PyPI, add a trusted publisher: workflow publish.yml, environment pypi.
       Optionally, Settings > Environments > pypi > Required reviewers: you, so
       each upload waits for your approval.{% endif %}
