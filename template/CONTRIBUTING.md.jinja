@@ -34,7 +34,7 @@ shows them all).
 | `just format` | fix lint and format the code with ruff |
 | `just build-docs` | build the HTML docs into `docs/_build/`, running every example; warnings are errors |
 | `just docs-serve` | preview the docs at <http://127.0.0.1:8000>, rebuilt on every save (on a remote machine, forward the port, e.g. VS Code's Ports panel) |
-| `just changelog` | draft CHANGELOG entries from the commits since the last release |
+| `just changelog` | draft CHANGELOG entries from the commits since the last release (run at release) |
 | `just pre-commit` | run every hook on every file |
 
 After changing dependencies in `pyproject.toml`, run `just lock` (the
@@ -44,22 +44,22 @@ After changing dependencies in `pyproject.toml`, run `just lock` (the
 
 1. Branch from `main`.
 2. Make the change, with tests and NumPy-style docstrings.
-3. Add a line under `## [Unreleased]` in [CHANGELOG.md](CHANGELOG.md) for
-   anything a user would notice.
-4. Commit with a [Conventional Commits](https://www.conventionalcommits.org/)
+3. Commit with a [Conventional Commits](https://www.conventionalcommits.org/)
    message, e.g. `fix(io): read files with a BOM` or `feat!: ...` for a
-   breaking change.
-5. Open a pull request. Link the issue it addresses ("Fixes #12").
+   breaking change. Leave [CHANGELOG.md](CHANGELOG.md) alone: the release notes
+   are drafted from these messages when the maintainer releases.
+4. Open a pull request. Link the issue it addresses ("Fixes #12").
 
 ## Releasing
 
 The version comes from git tags, through setuptools-scm, so there is no
 version string to bump.
 
-1. Run `just changelog` to draft the entries from your commit messages, edit
-   them into `CHANGELOG.md` under `## [Unreleased]`, then rename that heading
-   to `## [X.Y.Z] - YYYY-MM-DD` and start a new empty `## [Unreleased]` above
-   it. Commit (`chore(release): X.Y.Z`) and push to `main`.
+1. Write the changelog: `just changelog` drafts the entries from the commit
+   messages since the last release. Edit them into `CHANGELOG.md` under
+   `## [Unreleased]`, then rename that heading to `## [X.Y.Z] - YYYY-MM-DD` and
+   start a new empty `## [Unreleased]` above it. Commit (`chore(release): X.Y.Z`)
+   and push to `main`.
 2. Run `just release X.Y.Z`. It checks that the tree is clean, that `main` is in
    sync with GitHub, and that the version is newer than every existing tag, then
    pushes the tag `vX.Y.Z`.
