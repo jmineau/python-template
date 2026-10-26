@@ -41,7 +41,7 @@ runs the same recipes.
 | Live docs preview | `just docs-serve` (port 8000) |
 | All pre-commit hooks | `just pre-commit` |
 | Build and check dists | `just dist` |
-| Draft changelog entries | `just changelog` |
+| Draft the changelog entries (at release) | `just changelog` |
 
 After editing dependencies in `pyproject.toml`, run `uv lock` and commit
 `uv.lock` in the same commit.
@@ -185,9 +185,10 @@ when one breaks.
 
 - Commit messages follow Conventional Commits (`fix(io): ...`, `docs: ...`), with
   `!` for breaking changes (`feat!: ...`).
-- User-visible changes go under `## [Unreleased]` in `CHANGELOG.md`, which follows
-  [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). `just changelog`
-  drafts entries from commit messages (`cliff.toml`); the entries are edited by hand.
+- A pull request leaves `CHANGELOG.md` alone. At release, `just changelog` drafts
+  the entries from the commit messages (`cliff.toml`) and the maintainer edits them
+  into `CHANGELOG.md`, which follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+  So write each commit message as the line a user would read.
 - Docs are versioned on GitHub Pages, which serves the gh-pages branch (`dev/`,
   one folder per release, `stable/`); `.github/scripts/docs_versions.py`
   maintains the branch. Never edit gh-pages by hand.
