@@ -111,7 +111,7 @@ first time is by hand; `copier update` takes over from then on.
 | pre-commit | pre-commit-hooks, rST checks, validate-pyproject, [zizmor](https://docs.zizmor.sh); `uv lock`, ruff and pyrefly run from `.venv`, so `uv.lock` pins their versions |
 | Changelog | Keep a Changelog, written at release (pull requests leave it alone): `just changelog` drafts the entries from Conventional Commits ([git-cliff](https://git-cliff.org)) |
 | CI | Tests (the chosen operating systems × all supported Pythons), Code Quality, Documentation, Publish (tag push → PyPI trusted publishing with attestations → GitHub Release from CHANGELOG → Zenodo) |
-| Upkeep | Dependabot for actions, pre-commit hooks and `uv.lock` (monthly, grouped, 7-day cooldown; never raises minimum versions); a monthly workflow runs `uv lock --upgrade` and opens a pull request when the lock changes, so the newest release for each supported Python gets tested |
+| Upkeep | Dependabot for actions and pre-commit hooks (monthly, grouped, 7-day cooldown); a monthly workflow runs `uv lock --upgrade` and opens a pull request when `uv.lock` changes, so the newest release for each supported Python gets tested (never raises minimum versions) |
 | Project files | AGENTS.md, CONTRIBUTING.md, CHANGELOG.md, CITATION.cff, `.zenodo.json`, issue forms, PR template |
 
 Generated projects score clean on the Scientific Python
