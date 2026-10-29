@@ -64,6 +64,12 @@ test:
         sed 's/<[^>]*>//g' docs/_build/html/session.html | grep -qF 'square(5) = 25'
         grep -q 'session_squares.png' docs/_build/html/session.html
         grep -q 'class="plot-directive"' docs/_build/html/_autosummary/testpackage.plotting.square.html
+        # A constant a subclass sets again has a page that shows its value
+        # (docs/_ext/api_pages.py), and a subclass of that subclass lists it as inherited.
+        api=docs/_build/html/_autosummary
+        sed 's/<[^>]*>//g' "$api/testpackage.shapes.Triangle.name.html" | grep -q 'Triangle.name.*= .*triangle'
+        sed 's/<[^>]*>//g' "$api/testpackage.shapes.Triangle.corners.html" | grep -q 'Triangle.corners.*= 3'
+        sed 's/<[^>]*>//g' "$api/testpackage.shapes.RightTriangle.html" | grep -q 'From Triangle: corners, name'
         if [ "$opt" = true ]; then
             grep -qF 'square(4) = 16' docs/_build/html/guide.html
             grep -qF 'square(3) = 9' docs/_build/html/notebook.html
