@@ -57,3 +57,28 @@ jobs:
           token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
           files: junit.xml
           report_type: test_results
+
+  # The lowest versions pyproject.toml allows, on the oldest Python. Every
+  # direct dependency needs a minimum: without one, uv picks its oldest release.
+  floors:
+    name: minimum dependencies / Python {{ python_min }}
+    runs-on: ubuntu-latest
+    env:
+      UV_NO_SYNC: "1"  # `just` recipes run in the environment installed below
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0  # setuptools-scm reads the version from tags
+
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          version: "{{ uv_version }}"
+          python-version: "{{ python_min }}"
+
+      - name: Install
+        run: uvx --from rust-just just sync-floors
+
+      - name: Test
+        run: uv run just test
