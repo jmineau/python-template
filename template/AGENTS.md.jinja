@@ -35,6 +35,7 @@ runs the same recipes.
 | Set up / refresh `.venv` | `uv sync` |
 | Everything CI checks | `just quality-check` |
 | Tests (no network/slow) | `just test` (parallel; extra args go to pytest) |
+| Tests with every dependency at its minimum | `just sync-floors`, then `just test` |
 | Lint / fix and format | `just lint` / `just format` |
 | Type check | `just type-check` (pyrefly) |
 | Docs (runs every example; warnings are errors) | `just build-docs` |

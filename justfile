@@ -101,6 +101,12 @@ test:
         grep -qF -- '- **Breaking:** Drop the old reader' <<<"$notes"
         ! grep -q 'a commit after the release' <<<"$notes"  # chore commits are left out
         echo "::endgroup::"
+
+        echo "::group::minimum dependencies optional=$opt"
+        # What the Tests workflow's floors job runs; last, because it replaces .venv.
+        just sync-floors
+        UV_NO_SYNC=1 uv run just test
+        echo "::endgroup::"
         cd "$template"
     done
     echo "All checks passed for both variants."
