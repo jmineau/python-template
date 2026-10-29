@@ -70,6 +70,17 @@ test:
         sed 's/<[^>]*>//g' "$api/testpackage.shapes.Triangle.name.html" | grep -q 'Triangle.name.*= .*triangle'
         sed 's/<[^>]*>//g' "$api/testpackage.shapes.Triangle.corners.html" | grep -q 'Triangle.corners.*= 3'
         sed 's/<[^>]*>//g' "$api/testpackage.shapes.RightTriangle.html" | grep -q 'From Triangle: corners, name'
+        # A dataclass field whose default is a function is documented as the field: its
+        # own comment and default on an attribute page, not the function's signature and
+        # docstring. One described only in the class docstring has no page.
+        sed 's/<[^>]*>//g' "$api/testpackage.fields.Logger.write.html" | grep -q 'Logger.write: Callable.*shout'
+        sed 's/<[^>]*>//g' "$api/testpackage.fields.Logger.write.html" | grep -q 'Where the messages go, a function of one string'
+        if grep -q 'Print text in capitals\|Prints the values to a stream' "$api"/testpackage.fields.Logger*.html; then
+            echo "A Logger page shows a default function's docstring." >&2; exit 1
+        fi
+        test ! -e "$api/testpackage.fields.Logger.echo.html"
+        sed 's/<[^>]*>//g' "$api/testpackage.fields.Logger.html" | grep -q 'Where a copy goes'
+        test -e "$api/testpackage.fields.Logger.send.html"
         if [ "$opt" = true ]; then
             grep -qF 'square(4) = 16' docs/_build/html/guide.html
             grep -qF 'square(3) = 9' docs/_build/html/notebook.html
