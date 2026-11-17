@@ -43,6 +43,10 @@ jobs:
       - name: Test
         run: uv run just cov
 
+      # A job that runs tests this one skips (say, one with optional extras
+      # installed) should upload its own coverage.xml the same way: Codecov merges
+      # the uploads, and a line run in either job counts as covered. Without it,
+      # the modules behind the extras show as untested.
       - name: Upload coverage to Codecov
         if: {% raw %}${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '{% endraw %}{{ python_min }}{% raw %}' && !cancelled() }}{% endraw %}
         uses: codecov/codecov-action@v7
