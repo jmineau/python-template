@@ -94,6 +94,16 @@ first time is by hand; `copier update` takes over from then on.
 7. On GitHub: Settings > Actions > General > Workflow permissions: tick "Allow
    GitHub Actions to create and approve pull requests", so the monthly Upgrade
    lock workflow can open its pull request.
+8. On GitHub, protect what a release depends on:
+   - Settings > Rules > Rulesets > New branch ruleset, target the default
+     branch: "Restrict deletions" and "Block force pushes".
+   - New tag ruleset, target `refs/tags/v*`, no bypass: "Restrict deletions",
+     "Restrict updates" and "Block force pushes", so a release tag cannot be
+     moved or removed once published.
+   - With `publish_to_pypi`: Settings > Environments > `pypi` (the Publish
+     workflow creates it on its first run, or add it first) > Deployment
+     branches and tags > Selected, add the tag rule `v*`, so only a release
+     tag can publish.
 
 ## What you get
 
