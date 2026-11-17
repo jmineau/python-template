@@ -37,6 +37,8 @@ test:
         pages='session'
         if [ "$opt" = true ]; then
             cp -r "$template/fixtures/notebooks/." .
+            # Branding files: with them the site gets a logo and a link preview.
+            cp -r "$template/fixtures/branding/." .
             pages='session\n   guide\n   notebook'
         fi
         sed -i "s/^   usage$/   usage\n   $pages/" docs/index.rst
@@ -81,6 +83,14 @@ test:
         test ! -e "$api/testpackage.fields.Logger.echo.html"
         sed 's/<[^>]*>//g' "$api/testpackage.fields.Logger.html" | grep -q 'Where a copy goes'
         test -e "$api/testpackage.fields.Logger.send.html"
+        grep -q 'og:description' docs/_build/html/index.html
+        if [ "$opt" = true ]; then
+            grep -q '_static/logo.svg' docs/_build/html/index.html
+            grep -q 'og:image.*social-preview.png' docs/_build/html/index.html
+        else
+            ! grep -q 'og:image' docs/_build/html/index.html
+            ! grep -q '_static/logo.svg' docs/_build/html/index.html
+        fi
         if [ "$opt" = true ]; then
             grep -qF 'square(4) = 16' docs/_build/html/guide.html
             grep -qF 'square(3) = 9' docs/_build/html/notebook.html
