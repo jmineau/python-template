@@ -9,14 +9,25 @@ release. (`template/CHANGELOG.md` is the one generated projects start with.)
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-11-17
+
 ### Added
 
 - A Tests job installs every dependency at its declared minimum (ci)
+- The docs use `docs/_static/logo.svg` (`logo_dark.svg`), `favicon.ico` and `social-preview.png` when they exist, and write link-preview tags from the short description (docs)
+- A Pyrefly badge in the README (docs)
+- README setup step 8: rulesets that protect the default branch and the `v*` release tags, and a `pypi` environment limited to those tags (docs)
+
+### Changed
+
+- Codecov stops commenting on pull requests, and its checks are informational and never fail one (ci)
+- The docs navbar shows the package name; the version stays in the site title (docs)
 
 ### Fixed
 
 - A dataclass field whose default is a function gets a page for the field, not the function (docs)
 - A constant a subclass sets again gets an API page that shows its value (docs)
+- The empty code box above a figure made in a suppressed `.. ipython::` block is hidden (docs)
 
 ## [1.3.1] - 2026-10-27
 
