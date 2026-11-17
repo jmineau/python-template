@@ -46,8 +46,9 @@ uvx zizmor --offline .github                        # workflow security
 Projects record the template version in `.copier-answers.yml` (`_commit`), and
 `copier update` moves them to the newest tag. Tag releases `vX.Y.Z`: a new
 major version for changes that need manual follow-up in projects, a minor one
-for new tooling, a patch for fixes. Note what changed, and anything a project
-must do by hand, in the release notes.
+for new tooling, a patch for fixes. Write the release's entries in
+`CHANGELOG.md` (pull requests leave it alone), including anything a project must
+do by hand, and use them as the release notes.
 
 ## Guidelines
 
