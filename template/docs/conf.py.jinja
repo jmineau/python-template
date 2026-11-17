@@ -41,13 +41,16 @@ exclude_patterns = ["_build"{% if docs_notebooks %}, "**.ipynb_checkpoints"{% en
 # -- HTML ----------------------------------------------------------------------
 
 html_theme = "pydata_sphinx_theme"
-html_title = f"{project} {version_match}"  # not the full dev version
+html_title = f"{project} {version_match}"  # the site title (tab, search); not the full dev version
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
 html_theme_options = {
     "github_url": "https://github.com/{{ github_username }}/{{ repository_name }}",
     "show_toc_level": 2,
     "navbar_align": "left",
+    # The navbar shows the name alone (it defaults to html_title); the version
+    # switcher already says which version this is.
+    "logo": {"text": project},
     "navbar_end": ["version-switcher", "theme-switcher", "navbar-icon-links"],
     # The version dropdown. The Documentation workflow publishes dev/ (main),
     # one folder per release and stable/, and writes switcher.json listing them.
