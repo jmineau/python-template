@@ -117,7 +117,7 @@ first time is by hand; `copier update` takes over from then on.
 | Types | [pyrefly](https://pyrefly.org) |
 | Tests | pytest 9 (strict, warnings are errors, `network`/`slow` markers), parallel with pytest-xdist, pytest-cov, Codecov (no pull request comment; its checks are informational, so they never fail a pull request); the `>>>` examples in docstrings run as tests (`--doctest-modules`) |
 | Docstrings | NumPy style, [docstr-coverage](https://github.com/HunterMcGushion/docstr_coverage) ≥ 95% |
-| Docs | Sphinx + PyData theme, pandas-style API pages (a page per class, with tables of its attributes and methods, and a page per member), copy buttons, examples that run when the docs build (matplotlib's `.. plot::` in docstrings, IPython's `.. ipython::` in `.rst` pages, and with `docs_notebooks`, notebooks and code cells in Markdown pages), live preview (`just docs-serve`), built with warnings as errors; versioned on GitHub Pages (`dev/`, one folder per release, `stable/`) with a version dropdown; optional logo, favicon and link-preview image (drop `logo.svg`, `logo_dark.svg`, `favicon.ico`, `social-preview.png` in `docs/_static/`) |
+| Docs | Sphinx + PyData theme, pandas-style API pages (a page per class, with tables of its attributes and methods, and a page per member), copy buttons, examples that run when the docs build (matplotlib's `.. plot::` in docstrings, IPython's `.. ipython::` in `.rst` pages, and with `docs_notebooks`, notebooks and code cells in Markdown pages), live preview (`just docs-serve`), built with warnings as errors; versioned on GitHub Pages (`dev/`, one folder per release, `stable/`) with a version dropdown; optional logo, favicon and link-preview image ([below](#logo-favicon-and-link-preview)) |
 | pre-commit | pre-commit-hooks, rST checks, validate-pyproject, [zizmor](https://docs.zizmor.sh); `uv lock`, ruff and pyrefly run from `.venv`, so `uv.lock` pins their versions |
 | Changelog | Keep a Changelog, written at release (pull requests leave it alone): `just changelog` drafts the entries from Conventional Commits ([git-cliff](https://git-cliff.org)) |
 | CI | Tests (the chosen operating systems × all supported Pythons, plus one job with every dependency at its declared minimum, `just sync-floors`), Code Quality, Documentation, Publish (tag push → PyPI trusted publishing with attestations → GitHub Release from CHANGELOG → Zenodo) |
@@ -128,6 +128,37 @@ Generated projects score clean on the Scientific Python
 [repo-review](https://learn.scientific-python.org/development/guides/repo-review/)
 (deliberate exceptions are listed in `[tool.repo-review]`), and their workflows
 pass [actionlint](https://github.com/rhysd/actionlint) and zizmor.
+
+## Logo, favicon and link preview
+
+All optional. The docs pick up each file in `docs/_static/` that exists; no
+change to `conf.py` is needed. The list below is written so it can be handed
+as is to whoever (or whatever agent) draws them.
+
+1. **`logo.svg`**: the symbol, without the package name (the navbar already
+   shows the name as text beside it). A true vector SVG: no embedded bitmaps,
+   any text converted to paths, a square `viewBox` and no fixed
+   `width`/`height`, under about 20 KB, no scripts or external references.
+   It must read at 40 px tall on white, the navbar size, and stay
+   recognisable at 16 px: few shapes, thick strokes, no fine detail.
+2. **`logo_dark.svg`** (optional): the same symbol recoloured for a dark
+   background (about `#121212`). Without it, `logo.svg` is used in both themes.
+3. **`favicon.ico`**: the browser-tab icon, made from `logo.svg`, with 16, 32
+   and 48 px images:
+   `magick -background none docs/_static/logo.svg -define icon:auto-resize=48,32,16 docs/_static/favicon.ico`
+4. **`social-preview.png`**: the picture Slack, Discord and the like show for
+   a link to the docs. 1200×630 PNG, under 1 MB, solid background (no
+   transparency): the symbol, the package name and a one-line tagline from
+   `description` in `pyproject.toml`, all at least 60 px from the edges since
+   some sites crop them. The docs point at it on the `main` branch on GitHub,
+   so a preview shows only once it is merged. Upload the same file in the
+   repository's Settings > General > Social preview for GitHub's own links.
+
+Use two or three flat colours that work on both light and dark backgrounds,
+with no gradients. Before calling it done: render each file to PNG and look
+at it (the logo at 40 px and 16 px, the preview card at full size), then run
+`just build-docs` and check that `docs/_build/html/index.html` references
+`_static/logo.svg`.
 
 ## Layout
 
