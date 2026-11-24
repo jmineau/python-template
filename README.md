@@ -31,16 +31,16 @@ git-style markers) and commit it like any other change.
 |---|---|---|
 | `full_name`, `email`, `github_username` | James Mineau | Author and repository owner |
 | `orcid`, `affiliation` | James's | For CITATION.cff and Zenodo; may be blank |
-| `project_name` | — | Human-readable, e.g. "My Package" |
+| `project_name` | — | Human-readable, e.g. "My Package"; no `"` or `\` |
 | `repository_name` | from `project_name` | `my-package` |
 | `distribution_name` | from `repository_name` | The `pip install` / PyPI name |
 | `package_name` | from `distribution_name` | The import name (`mypackage`) |
-| `project_short_description` | — | One line |
+| `project_short_description` | — | One line; no `"` or `\` |
 | `python_min` | 3.11 | Oldest supported Python; CI tests it through 3.14 |
 | `publish_to_pypi` | yes | Adds trusted publishing to PyPI on release |
 | `docs_notebooks` | no | Runs notebooks, and code cells in Markdown pages, when the docs build ([myst-nb](https://myst-nb.readthedocs.io)); adds Jupyter to the dev tools |
 | `test_os` | Linux, macOS, Windows | Where the tests run; Linux is required (coverage uploads from it) |
-| `copyright_year` | 2026 | LICENSE |
+| `copyright_year` | this year | LICENSE |
 
 ## Adopting it in an existing package
 

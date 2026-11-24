@@ -69,7 +69,9 @@ affiliation:
 project_name:
   type: str
   help: Human-readable project name (e.g. "My Package")
-  validator: "{% if not project_name.strip() %}Required{% endif %}"
+  # pyproject.toml, .zenodo.json and CITATION.cff put the answer in quotes as it is.
+  validator: >-
+    {% if not project_name.strip() %}Required{% elif '"' in project_name or '\\' in project_name %}No " or \ (it goes into quoted strings){% endif %}
 
 repository_name:
   type: str
@@ -98,6 +100,8 @@ project_short_description:
   type: str
   help: One-line description
   default: A short description of the project.
+  validator: >-
+    {% if '"' in project_short_description or '\\' in project_short_description %}No " or \ (it goes into quoted strings){% endif %}
 
 python_min:
   type: str
@@ -129,7 +133,7 @@ test_os:
 copyright_year:
   type: str
   help: Year for the LICENSE copyright line
-  default: "2026"
+  default: "{{ '%Y' | strftime }}"  # this year
 
 # --- Computed (not asked, not stored in .copier-answers.yml) ------------------
 # Bump these here and `copier update` carries them into every project.
