@@ -130,4 +130,18 @@ test:
         echo "::endgroup::"
         cd "$template"
     done
+    echo "::group::docs versions"
+    # docs_versions.py deletes folders on the live gh-pages branch: run it on a scratch site.
+    site="$root/site"; html="$root/html"
+    mkdir -p "$site" "$html" && echo built > "$html/index.html"
+    for target in dev 0.1.0rc1 0.1.0 0.2.0rc1 0.1.1; do
+        uv run --no-project --with packaging python "$template/template/.github/scripts/docs_versions.py" \
+            "$site" "$html" "$target" --base-url https://example.github.io/pkg/ --prereleases upcoming
+    done
+    # The rc before a final release is gone; the upcoming one stays; stable is the newest final.
+    test "$(cd "$site" && LC_ALL=C ls -d */ | tr -d / | xargs)" = "0.1.0 0.1.1 0.2.0rc1 dev stable"
+    names="$(python3 -c 'import json, sys; print(*(e["name"] for e in json.load(sys.stdin)), sep="|")' < "$site/switcher.json")"
+    test "$names" = "dev|0.2.0rc1|0.1.1 (stable)|0.1.0" || { echo "switcher.json lists: $names" >&2; exit 1; }
+    grep -q 'url=stable/' "$site/index.html"
+    echo "::endgroup::"
     echo "All checks passed for both variants."
