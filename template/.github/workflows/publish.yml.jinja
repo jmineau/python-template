@@ -48,10 +48,26 @@ jobs:
             exit 1
           fi
 
+      # Here, before the upload to PyPI: a release without notes must not publish.
+      - name: Extract the CHANGELOG section
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          awk -v v="$version" '
+            index($0, "## [" v "]") == 1 { found = 1; next }
+            /^## \[/ { if (found) exit }
+            found { print }
+          ' CHANGELOG.md > release-notes.md
+          test -s release-notes.md || { echo "::error::CHANGELOG.md has no '## [$version]' section"; exit 1; }
+
       - uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-notes
+          path: release-notes.md
 {% if publish_to_pypi %}
   publish-pypi:
     needs: build
@@ -84,15 +100,9 @@ jobs:
           name: dist
           path: dist/
 
-      - name: Extract the CHANGELOG section
-        run: |
-          version="${GITHUB_REF_NAME#v}"
-          awk -v v="$version" '
-            index($0, "## [" v "]") == 1 { found = 1; next }
-            /^## \[/ { if (found) exit }
-            found { print }
-          ' CHANGELOG.md > release-notes.md
-          test -s release-notes.md || { echo "::error::CHANGELOG.md has no '## [$version]' section"; exit 1; }
+      - uses: actions/download-artifact@v8
+        with:
+          name: release-notes
 
       - name: Create the GitHub Release
         env:
