@@ -9,6 +9,22 @@ release. (`template/CHANGELOG.md` is the one generated projects start with.)
 
 ## [Unreleased]
 
+## [1.4.1] - 2026-11-26
+
+### Changed
+
+- `publish.yml` pins its actions to commit SHAs, with the version in a comment; other workflows keep tag pins (ci)
+- The generated `.gitignore` is cut to what the packages use (226 to 58 lines); `copier update` may conflict on it, keep the project's own extra lines (ci)
+- `just cov` runs the `test` recipe (ci)
+- The copyright year defaults to the current year (copier)
+
+### Fixed
+
+- Docs deploys queue per ref, so a newer run cannot cancel a waiting release deploy (ci)
+- Publish checks that `CHANGELOG.md` has the release's section before uploading to PyPI (ci)
+- `copier` rejects `"` and `\` in the project name and description, which broke `pyproject.toml` and `.zenodo.json` (copier)
+- `just test` checks `docs_versions.py` on a scratch site (ci)
+
 ## [1.4.0] - 2026-11-17
 
 ### Added
