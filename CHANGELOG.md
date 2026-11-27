@@ -9,6 +9,12 @@ release. (`template/CHANGELOG.md` is the one generated projects start with.)
 
 ## [Unreleased]
 
+## [1.4.2] - 2026-11-27
+
+### Fixed
+
+- The docs deploy retries the `gh-pages` push when a `main` and a release-tag deploy race, so a release's docs no longer fail and need a re-run (ci)
+
 ## [1.4.1] - 2026-11-26
 
 ### Changed
